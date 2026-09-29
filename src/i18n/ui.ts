@@ -19,6 +19,7 @@ export const other = (lang: Lang): Lang => (lang === 'en' ? 'ro' : 'en');
 export const ui = {
   en: {
     skip: 'Skip to content',
+    toTop: 'Back to top',
     nav: { work: 'Work', savoir: 'Savoir-Faire', about: 'About', contact: 'Contact' },
     menu: 'Menu',
     close: 'Close',
@@ -55,6 +56,7 @@ export const ui = {
   },
   ro: {
     skip: 'Sari la conținut',
+    toTop: 'Înapoi sus',
     nav: { work: 'Proiecte', savoir: 'Savoir-Faire', about: 'Despre', contact: 'Contact' },
     menu: 'Meniu',
     close: 'Închide',

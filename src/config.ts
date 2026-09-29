@@ -1,7 +1,7 @@
 // Site-wide settings. Safe to edit.
 
 /** Address shown on the site and used as the fallback for the contact form. */
-export const CONTACT_EMAIL = 'lea@leatamasiloniu.com';
+export const CONTACT_EMAIL = 'info@leatamasiloniu.com';
 
 /**
  * Web3Forms access key (free, from web3forms.com). It is designed to be public.

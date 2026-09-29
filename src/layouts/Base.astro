@@ -65,5 +65,21 @@ const ogImage = new URL('/og.png', Astro.site);
       <slot />
     </main>
     <Footer lang={lang} />
+    <button class="to-top" type="button" aria-label={ui[lang].toTop} title={ui[lang].toTop} hidden>
+      <span aria-hidden="true">↑</span>
+    </button>
+    <script>
+      const topBtn = document.querySelector<HTMLButtonElement>('.to-top');
+      if (topBtn) {
+        const toggle = () => { topBtn.hidden = window.scrollY < window.innerHeight; };
+        window.addEventListener('scroll', toggle, { passive: true });
+        toggle();
+        topBtn.addEventListener('click', () => {
+          const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+          document.querySelector<HTMLElement>('.site-header a')?.focus({ preventScroll: true });
+        });
+      }
+    </script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 ---
 import Tulip from './Tulip.astro';
-import { ui, type Lang } from '../i18n/ui';
-import { CONTACT_EMAIL, INSTAGRAM, LINKEDIN } from '../config';
+import { ui, path, type Lang } from '../i18n/ui';
+import { INSTAGRAM, LINKEDIN } from '../config';
 
 interface Props {
   lang: Lang;
@@ -15,7 +15,7 @@ const year = new Date().getFullYear();
   <div class="columns">
     <div class="col">
       <p class="head">{t.footer.contact}</p>
-      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+      <a href={path(lang, 'contact')}>{t.cta.a} <span aria-hidden="true">→</span></a>
     </div>
     <div class="col">
       <p class="head">{t.footer.follow}</p>
@@ -123,7 +123,7 @@ const year = new Date().getFullYear();
   .tulip {
     flex-shrink: 0;
     display: block;
-    height: clamp(111px, 22.2vw, 318px);
+    height: clamp(66px, 13vw, 190px);
     color: var(--blush);
   }
 
@@ -136,7 +136,7 @@ const year = new Date().getFullYear();
   .base {
     font-size: 13px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   @media (max-width: 900px) {
