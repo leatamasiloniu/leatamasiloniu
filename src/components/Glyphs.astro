@@ -1,0 +1,9 @@
+---
+// Bodoni's hairline dashes, hyphens, × and arrows vanish at text sizes.
+// This renders them in the sans so they stay visible inside serif text.
+interface Props {
+  text: string;
+}
+const parts = Astro.props.text.split(/(—|×|→|-)/);
+---
+{parts.map((part, i) => (i % 2 === 1 ? <span class="glyph">{part}</span> : part))}

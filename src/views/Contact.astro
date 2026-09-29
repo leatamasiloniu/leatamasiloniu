@@ -1,0 +1,367 @@
+---
+import Base from '../layouts/Base.astro';
+import { ui, path, other, type Lang } from '../i18n/ui';
+import { CONTACT_EMAIL, INSTAGRAM, LINKEDIN, WEB3FORMS_KEY } from '../config';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const f = {
+  en: {
+    title: 'Let’s talk.',
+    intro: 'Tell me a little about your business and what you have in mind.',
+    direct: 'Or write directly',
+    first: 'First name',
+    last: 'Surname',
+    email: 'Email',
+    reason: 'Reason for getting in touch',
+    choose: 'Choose one',
+    reasons: ['Strategy enquiry', 'Creative enquiry', 'Project or event delivery', 'Collaboration', 'Press', 'Other'],
+    message: 'Message',
+    send: 'Send message',
+    sending: 'Sending…',
+    privacy: 'Your details are only used to reply to your message.',
+    ok: 'Thank you — your message is on its way. I’ll be in touch soon.',
+    fail: 'Your message couldn’t be sent. Please email me directly at',
+    fallback: 'Your email app will open with your message ready to send.',
+    subject: 'Website enquiry',
+    description: 'Get in touch with Lea Tămășiloniu Studio.',
+  },
+  ro: {
+    title: 'Să vorbim.',
+    intro: 'Spune-mi câte ceva despre afacerea ta și despre ce ai în minte.',
+    direct: 'Sau scrie-mi direct',
+    first: 'Prenume',
+    last: 'Nume',
+    email: 'Email',
+    reason: 'Motivul mesajului',
+    choose: 'Alege o opțiune',
+    reasons: ['Strategie', 'Proiect creativ', 'Coordonare de proiect sau eveniment', 'Colaborare', 'Presă', 'Altceva'],
+    message: 'Mesaj',
+    send: 'Trimite mesajul',
+    sending: 'Se trimite…',
+    privacy: 'Datele tale sunt folosite doar pentru a-ți răspunde.',
+    ok: 'Mulțumesc! Mesajul tău a ajuns. Revin în curând.',
+    fail: 'Mesajul nu a putut fi trimis. Scrie-mi direct la',
+    fallback: 'Se deschide aplicația ta de email, cu mesajul pregătit.',
+    subject: 'Mesaj de pe site',
+    description: 'Contactează Lea Tămășiloniu Studio.',
+  },
+}[lang];
+---
+<Base lang={lang} alt={path(other(lang), 'contact')} current="contact" title={`${t.nav.contact} — Lea Tămășiloniu`} description={f.description}>
+  <div class="contact">
+    <section class="intro-col">
+      <h1 class="label">{t.nav.contact}</h1>
+      <p class="serif title">{f.title}</p>
+      <p class="intro">{f.intro}</p>
+      <div class="direct">
+        <p class="label">{f.direct}</p>
+        <a class="serif mail" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        <div class="socials">
+          <a class="label" href={INSTAGRAM} rel="noopener" target="_blank">Instagram</a>
+          <a class="label" href={LINKEDIN} rel="noopener" target="_blank">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <form
+      class="form"
+      novalidate
+      data-key={WEB3FORMS_KEY}
+      data-to={CONTACT_EMAIL}
+      data-subject={f.subject}
+      data-sending={f.sending}
+      data-send={f.send}
+      data-ok={f.ok}
+      data-fail={f.fail}
+      data-fallback={f.fallback}
+    >
+      <div class="pair">
+        <div class="field">
+          <label for="first">{f.first}</label>
+          <input id="first" name="first_name" type="text" autocomplete="given-name" required />
+        </div>
+        <div class="field">
+          <label for="last">{f.last}</label>
+          <input id="last" name="last_name" type="text" autocomplete="family-name" required />
+        </div>
+      </div>
+      <div class="field">
+        <label for="email">{f.email}</label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="reason">{f.reason}</label>
+        <div class="select">
+          <select id="reason" name="reason" required>
+            <option value="" disabled selected>{f.choose}</option>
+            {f.reasons.map((r) => <option value={r}>{r}</option>)}
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="message">{f.message}</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+      </div>
+      <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <div class="actions">
+        <button class="label btn-frame submit" type="submit">{f.send}</button>
+        <p class="privacy">{f.privacy}</p>
+      </div>
+      <p class="status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form.form');
+  if (form) {
+    const status = form.querySelector<HTMLElement>('.status')!;
+    const btn = form.querySelector<HTMLButtonElement>('.submit')!;
+    const d = form.dataset;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.classList.add('tried');
+        form.querySelector<HTMLElement>(':invalid')?.focus();
+        return;
+      }
+      const data = new FormData(form);
+      if (data.get('botcheck')) return;
+      const first = String(data.get('first_name') ?? '').trim();
+      const last = String(data.get('last_name') ?? '').trim();
+      const reason = String(data.get('reason') ?? '');
+      const message = String(data.get('message') ?? '');
+      const email = String(data.get('email') ?? '');
+      const subject = `${d.subject} — ${reason} — ${first} ${last}`;
+
+      if (!d.key) {
+        const body = `${message}\n\n— ${first} ${last}\n${email}`;
+        window.location.href = `mailto:${d.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        status.textContent = d.fallback ?? '';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = d.sending ?? '…';
+      status.textContent = '';
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: d.key,
+            subject,
+            from_name: `${first} ${last}`,
+            name: `${first} ${last}`,
+            email,
+            reason,
+            message,
+          }),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || json.success === false) throw new Error('send failed');
+        form.reset();
+        form.classList.remove('tried');
+        status.textContent = d.ok ?? '';
+      } catch {
+        status.innerHTML = '';
+        status.append(`${d.fail} `);
+        const a = document.createElement('a');
+        a.href = `mailto:${d.to}`;
+        a.textContent = d.to ?? '';
+        status.append(a, '.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = d.send ?? '';
+      }
+    });
+  }
+</script>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 40px;
+    padding: clamp(48px, 7vw, 100px) var(--gutter) var(--section-y);
+  }
+
+  .intro-col {
+    grid-column: 1 / span 5;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .title {
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .intro {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 420px;
+  }
+
+  .direct {
+    margin-top: clamp(20px, 4vw, 56px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .mail {
+    font-size: clamp(22px, 2vw, 28px);
+    width: fit-content;
+    border-bottom: 1px solid var(--line-milk);
+  }
+
+  .socials {
+    display: flex;
+    gap: 28px;
+  }
+
+  .form {
+    grid-column: 7 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    background: var(--blush);
+    padding: clamp(28px, 4vw, 56px);
+  }
+
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  label {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  input,
+  select,
+  textarea {
+    font: inherit;
+    font-size: 16px;
+    color: var(--chocolate);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--chocolate);
+    border-radius: 0;
+    padding: 10px 0;
+    width: 100%;
+    appearance: none;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-bottom-width: 2px;
+    border-color: var(--green);
+    padding-bottom: 9px;
+  }
+
+  .select {
+    position: relative;
+  }
+
+  .select::after {
+    content: '';
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 1px solid var(--chocolate);
+    border-bottom: 1px solid var(--chocolate);
+    transform: translateY(-75%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  select:invalid {
+    color: var(--cocoa);
+  }
+
+  .tried :invalid {
+    border-color: #a3372a;
+  }
+
+  .hp {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .submit {
+    background: transparent;
+    color: var(--chocolate);
+    font: inherit;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+  }
+
+  .submit:disabled {
+    opacity: 0.6;
+  }
+
+  .privacy {
+    font-size: 13px;
+    color: var(--cocoa);
+  }
+
+  .status {
+    min-height: 1.6em;
+    font-size: 15px;
+  }
+
+  .status :global(a) {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+    .contact {
+      grid-template-columns: 1fr;
+    }
+
+    .intro-col,
+    .form {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .pair {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

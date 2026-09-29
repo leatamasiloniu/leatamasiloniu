@@ -1,24 +1,79 @@
 ---
-const links = [
-  { href: '/#work', label: 'Work' },
-  { href: '/#practice', label: 'Practice' },
-  { href: '/#about', label: 'About' },
+import Glyphs from './Glyphs.astro';
+import { ui, path, type Lang, type PageKey } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  alt: string;
+  current?: PageKey;
+}
+
+const { lang, alt, current } = Astro.props;
+const t = ui[lang];
+const links: { key: PageKey; label: string }[] = [
+  { key: 'work', label: t.nav.work },
+  { key: 'savoir', label: t.nav.savoir },
+  { key: 'about', label: t.nav.about },
 ];
+const enHref = lang === 'en' ? Astro.url.pathname : alt;
+const roHref = lang === 'ro' ? Astro.url.pathname : alt;
 ---
 <header class="site-header">
   <nav class="nav" aria-label="Main">
-    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    {links.map((l) => (
+      <a href={path(lang, l.key)} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a>
+    ))}
   </nav>
-  <a class="mark" href="/" aria-label="Lea Tămășiloniu, home">
+
+  <a class="mark" href={path(lang, 'home')} aria-label="Lea Tămășiloniu">
     <img src="/monogram.svg" alt="" width="40" height="41" />
   </a>
+
   <div class="end">
-    <a href="#contact">Contact</a>
+    <a class="contact-link" href={path(lang, 'contact')} aria-current={current === 'contact' ? 'page' : undefined}>{t.nav.contact}</a>
+    <div class="lang" role="group" aria-label={t.langLabel}>
+      <a href={roHref} hreflang="ro" lang="ro" aria-current={lang === 'ro' ? 'true' : undefined}>RO</a>
+      <span aria-hidden="true">|</span>
+      <a href={enHref} hreflang="en" lang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
+    </div>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" data-open-label={t.menu} data-close-label={t.close}>
+      {t.menu}
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu" hidden>
+    <nav aria-label="Main">
+      {links.map((l) => (
+        <a class="serif" href={path(lang, l.key)} aria-current={current === l.key ? 'page' : undefined}><Glyphs text={l.label} /></a>
+      ))}
+      <a class="serif" href={path(lang, 'contact')} aria-current={current === 'contact' ? 'page' : undefined}>{t.nav.contact}</a>
+    </nav>
   </div>
 </header>
 
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  if (btn && menu) {
+    const set = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? btn.dataset.closeLabel ?? 'Close' : btn.dataset.openLabel ?? 'Menu';
+      menu.hidden = !open;
+      document.documentElement.classList.toggle('menu-open', open);
+    };
+    btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+        set(false);
+        btn.focus();
+      }
+    });
+  }
+</script>
+
 <style>
   .site-header {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
@@ -27,11 +82,18 @@ const links = [
     font-size: 12px;
     letter-spacing: 0.26em;
     text-transform: uppercase;
+    z-index: 20;
   }
 
   .nav {
     display: flex;
     gap: 40px;
+  }
+
+  a[aria-current='page'] {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
   }
 
   .mark img {
@@ -41,14 +103,66 @@ const links = [
   .end {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
   }
 
-  @media (max-width: 720px) {
+  .lang {
+    display: flex;
+    gap: 8px;
+    color: var(--cocoa);
+  }
+
+  .lang a {
+    color: var(--cocoa);
+  }
+
+  .lang a[aria-current='true'] {
+    color: var(--chocolate);
+  }
+
+  .menu-btn {
+    display: none;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 12px 0;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 84px 0 0 0;
+    background: var(--milk);
+    padding: 40px var(--gutter);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .mobile-menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .mobile-menu a {
+    font-size: 40px;
+    line-height: 1.1;
+  }
+
+  @media (max-width: 900px) {
     .site-header {
       grid-template-columns: auto 1fr;
       height: 84px;
       font-size: 11px;
       letter-spacing: 0.18em;
+    }
+
+    .nav,
+    .contact-link {
+      display: none;
     }
 
     .mark {
@@ -60,15 +174,16 @@ const links = [
       width: 34px;
     }
 
-    .nav {
-      grid-column: 2;
-      grid-row: 1;
-      justify-content: flex-end;
-      gap: 18px;
+    .end {
+      gap: 28px;
     }
 
-    .end {
-      display: none;
+    .menu-btn {
+      display: block;
     }
+  }
+
+  :global(html.menu-open) {
+    overflow: hidden;
   }
 </style>

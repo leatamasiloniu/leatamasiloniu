@@ -1,0 +1,68 @@
+---
+import Glyphs from '../components/Glyphs.astro';
+import Base from '../layouts/Base.astro';
+import PaletteCard from '../components/PaletteCard.astro';
+import { ui, path, projectPath, other, type Lang } from '../i18n/ui';
+import { projects } from '../data/projects';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const copy = {
+  en: { intro: 'Operations, delivery and production for creative businesses — a selection.', title: 'Work — Lea Tămășiloniu' },
+  ro: { intro: 'Operațiuni, execuție și producție pentru afaceri creative — o selecție.', title: 'Proiecte — Lea Tămășiloniu' },
+}[lang];
+---
+<Base lang={lang} alt={path(other(lang), 'work')} current="work" title={copy.title} description={copy.intro}>
+  <section class="page-head">
+    <h1 class="label">{t.nav.work}</h1>
+    <p class="serif lead"><Glyphs text={copy.intro} /></p>
+  </section>
+  <ul class="grid">
+    {projects.map((p, i) => (
+      <li>
+        <PaletteCard project={p} lang={lang} href={projectPath(lang, p.slug)} sizes="(max-width: 700px) 90vw, 45vw" eager={i < 2} />
+      </li>
+    ))}
+  </ul>
+</Base>
+
+<style>
+  .page-head {
+    padding: clamp(48px, 7vw, 100px) var(--gutter) clamp(48px, 6vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .lead {
+    font-size: clamp(30px, 3.6vw, 52px);
+    line-height: 1.2;
+    max-width: 900px;
+  }
+
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0 var(--gutter) var(--section-y);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(40px, 5vw, 72px) clamp(24px, 4vw, 56px);
+  }
+
+  .grid li:nth-child(even) {
+    margin-top: clamp(0px, 8vw, 120px);
+  }
+
+  @media (max-width: 700px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    .grid li:nth-child(even) {
+      margin-top: 0;
+    }
+  }
+</style>

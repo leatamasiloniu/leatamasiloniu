@@ -1,30 +1,40 @@
 ---
+import Tulip from './Tulip.astro';
+import { ui, type Lang } from '../i18n/ui';
+import { CONTACT_EMAIL, INSTAGRAM, LINKEDIN } from '../config';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
 const year = new Date().getFullYear();
 ---
 <div class="checker footer-checker" aria-hidden="true"></div>
-<footer id="contact" class="site-footer">
+<footer id="contact-info" class="site-footer">
   <div class="columns">
     <div class="col">
-      <p class="head">Contact</p>
-      <a href="mailto:lea@leatamasiloniu.com">lea@leatamasiloniu.com</a>
+      <p class="head">{t.footer.contact}</p>
+      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
     </div>
     <div class="col">
-      <p class="head">Follow</p>
-      <a class="caps" href="https://www.linkedin.com/in/lea-tamasiloniu" rel="noopener" target="_blank">LinkedIn</a>
+      <p class="head">{t.footer.follow}</p>
+      <a class="caps" href={INSTAGRAM} rel="noopener" target="_blank">Instagram</a>
+      <a class="caps" href={LINKEDIN} rel="noopener" target="_blank">LinkedIn</a>
     </div>
     <div class="col">
-      <p class="head">Studio</p>
-      <p>Working with clients in London and across Europe</p>
+      <p class="head">{t.footer.studio}</p>
+      <p>{t.footer.studioLine}</p>
     </div>
     <div class="col end">
-      <p class="head">Availability</p>
-      <p class="avail"><span class="dot" aria-hidden="true"></span>Taking on select projects</p>
+      <p class="head">{t.footer.availability}</p>
+      <p class="avail"><span class="dot" aria-hidden="true"></span>{t.available}</p>
     </div>
   </div>
 
   <div class="initials" aria-hidden="true">
     <span class="serif">L</span>
-    <span class="bullet"></span>
+    <span class="tulip"><Tulip /></span>
     <span class="serif">T</span>
   </div>
 
@@ -35,6 +45,7 @@ const year = new Date().getFullYear();
 
 <style>
   .footer-checker {
+    --checker-a: var(--blush);
     --checker-b: var(--chocolate);
   }
 
@@ -46,6 +57,7 @@ const year = new Date().getFullYear();
     display: flex;
     flex-direction: column;
     gap: clamp(64px, 10vw, 150px);
+    --tulip-ground: var(--chocolate);
   }
 
   .site-footer a:hover {
@@ -107,12 +119,18 @@ const year = new Date().getFullYear();
     line-height: 0.74;
   }
 
-  .bullet {
+  /* the tulip stands as tall as the capitals, centred between them */
+  .tulip {
     flex-shrink: 0;
-    width: clamp(32px, 6.4vw, 92px);
-    height: clamp(32px, 6.4vw, 92px);
-    border-radius: 50%;
-    background: var(--blush);
+    display: block;
+    height: clamp(111px, 22.2vw, 318px);
+    color: var(--blush);
+  }
+
+  .tulip :global(svg) {
+    display: block;
+    height: 100%;
+    width: auto;
   }
 
   .base {

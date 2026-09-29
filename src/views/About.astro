@@ -1,0 +1,172 @@
+---
+import Glyphs from '../components/Glyphs.astro';
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import { ui, path, other, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const copy = {
+  en: {
+    lead: 'Operations with a designer’s eye — bringing structure to creative businesses.',
+    paras: [
+      'I’ve spent the past years inside premium creative businesses in London: at WatchHouse, from running the floor to creative design, and now as Operations Manager at Mount Street Printers in Mayfair.',
+      'I trained as an interior designer at the University of the Arts London, graduating with First Class Honours. The way I work still comes from there: listen first — to the people, the space and the business — then build the structure that lets everything run.',
+      'Lea Tămășiloniu Studio is where it all comes together: operations, project delivery, and brand and print production for creative businesses. I’ve recently started an MBA, adding a sharper commercial lens to the practice.',
+    ],
+    origin: 'Born in Romania · trained in London',
+    background: 'Background',
+    timeline: [
+      ['2026 —', 'MBA', 'In progress'],
+      ['2024 —', 'Operations Manager', 'Mount Street Printers'],
+      ['2023 — 24', 'Creative Designer', 'WatchHouse'],
+      ['2020 — 23', 'House Supervisor', 'WatchHouse'],
+      ['2021 — 22', 'Design Intern', 'HCL Architects'],
+      ['2019 — 22', 'BA (Hons) Interior Design, First Class', 'University of the Arts London'],
+    ],
+    description: 'Lea Tămășiloniu: operations and project lead with a designer’s training, bringing structure to creative businesses.',
+  },
+  ro: {
+    lead: 'Operațiuni, cu ochi de designer — aduc structură în afacerile creative.',
+    paras: [
+      'În ultimii ani am lucrat în afaceri creative premium din Londra: la WatchHouse, de la coordonarea echipei la design creativ, iar acum ca Operations Manager la Mount Street Printers, în Mayfair.',
+      'Am studiat design de interior la University of the Arts London, pe care am absolvit-o cu First Class Honours. Modul în care lucrez vine tot de acolo: întâi ascult — oamenii, spațiul și afacerea — apoi construiesc structura care face ca totul să funcționeze.',
+      'Lea Tămășiloniu Studio este locul în care toate acestea se întâlnesc: operațiuni, execuție de proiecte și producție de brand și tipar pentru afaceri creative. Recent am început un MBA, care adaugă practicii o perspectivă comercială mai clară.',
+    ],
+    origin: 'Născută în România · formată la Londra',
+    background: 'Parcurs',
+    timeline: [
+      ['2026 —', 'MBA', 'În curs'],
+      ['2024 —', 'Operations Manager', 'Mount Street Printers'],
+      ['2023 — 24', 'Creative Designer', 'WatchHouse'],
+      ['2020 — 23', 'House Supervisor', 'WatchHouse'],
+      ['2021 — 22', 'Design Intern', 'HCL Architects'],
+      ['2019 — 22', 'BA (Hons) Design de interior, First Class', 'University of the Arts London'],
+    ],
+    description: 'Lea Tămășiloniu: operațiuni și coordonare de proiecte, cu formare de designer, pentru afaceri creative.',
+  },
+}[lang];
+---
+<Base lang={lang} alt={path(other(lang), 'about')} current="about" title={`${t.nav.about} — Lea Tămășiloniu`} description={copy.description}>
+  <section class="page-head">
+    <h1 class="label">{t.nav.about}</h1>
+    <p class="serif lead"><Glyphs text={copy.lead} /></p>
+  </section>
+
+  <section class="bio">
+    <p class="label origin">{copy.origin}</p>
+    <div class="paras">
+      {copy.paras.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <section class="timeline" aria-labelledby="bg-title">
+    <h2 id="bg-title" class="label">{copy.background}</h2>
+    <ol>
+      {copy.timeline.map(([y, what, where]) => (
+        <li><span class="y">{y}</span><span class="serif what">{what}</span><span class="where">{where}</span></li>
+      ))}
+    </ol>
+  </section>
+
+  <Cta lang={lang} />
+</Base>
+
+<style>
+  .page-head {
+    padding: clamp(48px, 7vw, 100px) var(--gutter) clamp(56px, 7vw, 100px);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .lead {
+    font-size: clamp(34px, 4.4vw, 64px);
+    line-height: 1.15;
+    max-width: 1050px;
+  }
+
+  .bio {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 40px;
+    padding: 0 var(--gutter) var(--section-y);
+  }
+
+  .origin {
+    grid-column: 1 / span 4;
+  }
+
+  .paras {
+    grid-column: 6 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.85;
+    max-width: 640px;
+  }
+
+  .timeline {
+    background: var(--blush);
+    padding: var(--section-y) var(--gutter);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line-blush);
+  }
+
+  ol li {
+    display: grid;
+    grid-template-columns: 2fr 6fr 4fr;
+    gap: 20px;
+    align-items: baseline;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line-blush);
+  }
+
+  .y,
+  .where {
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: var(--cocoa);
+  }
+
+  .what {
+    font-size: clamp(22px, 2vw, 30px);
+  }
+
+  .where {
+    text-align: right;
+  }
+
+  @media (max-width: 900px) {
+    .bio {
+      grid-template-columns: 1fr;
+    }
+
+    .origin,
+    .paras {
+      grid-column: 1 / -1;
+    }
+
+    ol li {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    .where {
+      text-align: left;
+    }
+  }
+</style>

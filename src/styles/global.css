@@ -109,6 +109,41 @@ p {
   background: var(--green);
 }
 
+.btn-frame {
+  display: inline-block;
+  border: 1px solid var(--chocolate);
+  outline: 1px solid var(--chocolate);
+  outline-offset: 3px;
+  padding: 14px 28px;
+  margin: 4px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.btn-frame:hover {
+  background: var(--chocolate);
+  color: var(--milk);
+}
+
+/* Tulip cursor ("lalea") for mouse users only. SVG first, PNG fallback, then the system cursor. */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    cursor: url('/cursors/tulip.svg') 9 4, url('/cursors/tulip.png') 9 4, auto;
+  }
+
+  a,
+  button:not(:disabled),
+  select,
+  summary,
+  label[for] {
+    cursor: url('/cursors/tulip-bloom.svg') 9 4, url('/cursors/tulip-bloom.png') 9 4, pointer;
+  }
+
+  input,
+  textarea {
+    cursor: text;
+  }
+}
+
 /* Bodoni's hairline dashes and × signs vanish at text sizes; draw them in the sans */
 .glyph {
   font-family: var(--sans);

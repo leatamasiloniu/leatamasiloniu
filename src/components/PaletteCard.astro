@@ -1,0 +1,169 @@
+---
+// A project card. On hover (or keyboard focus) the photo gives way to its colour palette,
+// V&J-style: three swatches on top, the project name on a tint of the photo below.
+import { Image } from 'astro:assets';
+import type { Project } from '../data/projects';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  project: Project;
+  lang: Lang;
+  href: string;
+  sizes?: string;
+  eager?: boolean;
+}
+
+const { project: p, lang, href, sizes = '(max-width: 700px) 80vw, 420px', eager = false } = Astro.props;
+const [s1, s2, s3] = p.palette.swatches;
+const style = `--p-bg:${p.palette.bg};--p-ink:${p.palette.ink};--s1:${s1};--s2:${s2};--s3:${s3}`;
+const kind = p[lang].kind;
+---
+<a class="pcard" href={href} style={style}>
+  <div class="frame">
+    {p.image ? (
+      <Image
+        src={p.image}
+        alt={p.alt?.[lang] ?? ''}
+        widths={[400, 640, 900, 1200]}
+        sizes={sizes}
+        loading={eager ? 'eager' : 'lazy'}
+        class="photo"
+      />
+    ) : (
+      <div class="type-card" aria-hidden="true">
+        <span class:list={['serif', { italic: p.italic }]}>{p.name}</span>
+      </div>
+    )}
+    <div class="pal" aria-hidden="true">
+      <div class="sw"><span></span><span></span><span></span></div>
+      <p class="pal-name"><span class="sans">{p.name}</span> — <em class="serif">{kind}</em></p>
+    </div>
+  </div>
+  <div class="strip" aria-hidden="true"><span></span><span></span><span></span></div>
+  <p class="cap"><span class:list={{ italic: p.italic }}>{p.name}</span> <span class="glyph">—</span> <em class="serif">{kind}</em></p>
+</a>
+
+<style>
+  .pcard {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    color: var(--chocolate);
+  }
+
+  .pcard:hover {
+    color: var(--chocolate);
+  }
+
+  .frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--p-bg);
+  }
+
+  .photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .type-card {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12%;
+    text-align: center;
+    background: var(--blush);
+  }
+
+  .type-card .serif {
+    font-size: clamp(28px, 2.6vw, 38px);
+    line-height: 1.15;
+  }
+
+  .italic {
+    font-style: italic;
+  }
+
+  .pal {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-rows: 30% 1fr;
+    background: var(--p-bg);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .sw,
+  .strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sw span:nth-child(1),
+  .strip span:nth-child(1) {
+    background: var(--s1);
+  }
+
+  .sw span:nth-child(2),
+  .strip span:nth-child(2) {
+    background: var(--s2);
+  }
+
+  .sw span:nth-child(3),
+  .strip span:nth-child(3) {
+    background: var(--s3);
+  }
+
+  .pal-name {
+    align-self: start;
+    margin-top: 26%;
+    padding: 0 10%;
+    text-align: center;
+    color: var(--p-ink);
+    font-size: 19px;
+  }
+
+  .pal-name em {
+    font-size: 21px;
+  }
+
+  .strip {
+    display: none;
+    height: 8px;
+  }
+
+  .cap {
+    font-size: 15px;
+    letter-spacing: 0.02em;
+  }
+
+  .cap em {
+    font-size: 17px;
+  }
+
+  @media (hover: hover) {
+    .pcard:hover .pal,
+    .pcard:focus-visible .pal {
+      opacity: 1;
+    }
+  }
+
+  /* Touch screens have no hover: show the palette as a slim strip under the photo instead */
+  @media (hover: none) {
+    .strip {
+      display: grid;
+      margin-top: -14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pal {
+      transition: none;
+    }
+  }
+</style>

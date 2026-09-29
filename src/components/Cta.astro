@@ -1,0 +1,28 @@
+---
+import { ui, path, type Lang } from '../i18n/ui';
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+---
+<section class="cta">
+  <p class="serif q">{t.cta.q}</p>
+  <a class="label btn-frame" href={path(lang, 'contact')}>{t.cta.a}</a>
+</section>
+
+<style>
+  .cta {
+    padding: var(--section-y) var(--gutter);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .q {
+    font-style: italic;
+    font-size: clamp(30px, 3.4vw, 48px);
+  }
+</style>

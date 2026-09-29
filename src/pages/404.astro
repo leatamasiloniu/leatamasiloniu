@@ -1,16 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 ---
-<Base title="Page not found — Lea Tămășiloniu">
-  <Header />
-  <main id="main" class="missing">
+<Base lang="en" alt="/ro" title="Page not found — Lea Tămășiloniu">
+  <section class="missing">
     <p class="label">404</p>
     <h1 class="serif">This page has wandered off.</h1>
-    <a class="label back" href="/">Back to the homepage</a>
-  </main>
-  <Footer />
+    <p class="serif ro" lang="ro">Pagina aceasta a luat-o razna.</p>
+    <div class="links">
+      <a class="label btn-frame" href="/">Homepage</a>
+      <a class="label btn-frame" href="/ro" lang="ro">Prima pagină</a>
+    </div>
+  </section>
 </Base>
 
 <style>
@@ -20,7 +20,7 @@ import Footer from '../components/Footer.astro';
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 28px;
+    gap: 22px;
     padding: 96px var(--gutter);
     text-align: center;
   }
@@ -30,8 +30,17 @@ import Footer from '../components/Footer.astro';
     font-style: italic;
   }
 
-  .back {
-    border-bottom: 1px solid var(--chocolate);
-    padding-bottom: 6px;
+  .ro {
+    font-style: italic;
+    font-size: clamp(22px, 2.4vw, 32px);
+    color: var(--cocoa);
+  }
+
+  .links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 12px;
   }
 </style>

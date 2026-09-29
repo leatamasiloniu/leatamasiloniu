@@ -1,0 +1,115 @@
+---
+import PaletteCard from './PaletteCard.astro';
+import { projects } from '../data/projects';
+import { ui, projectPath, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+---
+<section class="carousel" aria-labelledby="closer-title">
+  <div class="top">
+    <h2 id="closer-title" class="label">{t.closer}</h2>
+    <div class="ctrl">
+      <button type="button" class="prev" aria-label={t.prev}>←</button>
+      <button type="button" class="next" aria-label={t.next}>→</button>
+    </div>
+  </div>
+  <ul class="track">
+    {projects.map((p) => (
+      <li>
+        <PaletteCard project={p} lang={lang} href={projectPath(lang, p.slug)} />
+      </li>
+    ))}
+  </ul>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.carousel').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('.track');
+    const prev = root.querySelector<HTMLButtonElement>('.prev');
+    const next = root.querySelector<HTMLButtonElement>('.next');
+    if (!track || !prev || !next) return;
+    const step = () => (track.querySelector('li')?.getBoundingClientRect().width ?? 300) + 32;
+    const update = () => {
+      prev.disabled = track.scrollLeft < 4;
+      next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+</script>
+
+<style>
+  .carousel {
+    padding: var(--section-y) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--gutter);
+  }
+
+  .ctrl {
+    display: flex;
+    gap: 10px;
+  }
+
+  .ctrl button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--chocolate);
+    background: transparent;
+    color: var(--chocolate);
+    font: inherit;
+    font-size: 18px;
+  }
+
+  .ctrl button:hover:not(:disabled) {
+    background: var(--chocolate);
+    color: var(--milk);
+  }
+
+  .ctrl button:disabled {
+    opacity: 0.3;
+  }
+
+  .track {
+    list-style: none;
+    margin: 0;
+    padding: 0 var(--gutter);
+    display: flex;
+    gap: 32px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 var(--gutter);
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track li {
+    flex: 0 0 clamp(250px, 28vw, 400px);
+    scroll-snap-align: start;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      scroll-behavior: auto;
+    }
+  }
+</style>
