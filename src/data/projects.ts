@@ -1,5 +1,9 @@
 import type { ImageMetadata } from 'astro';
-import tiles from '../assets/work/tiles.jpg';
+import mspShop from '../assets/work/msp/shopfront.jpg';
+import mspFoil from '../assets/work/msp/foil-wall.jpg';
+import mspPress from '../assets/work/msp/press.jpg';
+import mspCards from '../assets/work/msp/cards.jpg';
+import mspCardTools from '../assets/work/msp/card-tools.jpg';
 import dogMap from '../assets/work/dog/map.jpg';
 import dogBook from '../assets/work/dog/book.jpg';
 import dogCounter from '../assets/work/dog/launch-counter.jpg';
@@ -92,9 +96,15 @@ export const projects: Project[] = [
     client: 'Mount Street Printers, Mayfair',
     year: '2024',
     since: true,
-    image: tiles,
-    alt: { en: 'Green and white marble checkerboard floor in sunlight', ro: 'Pardoseală de marmură în carouri verzi și albe, în lumina soarelui' },
-    palette: { swatches: ['#CBD6A5', '#92A163', '#152119'], bg: '#F7F8F1', ink: '#152119' },
+    image: mspShop,
+    alt: { en: 'The Mount Street Printers shopfront on Mount Street, Mayfair', ro: 'Vitrina Mount Street Printers de pe Mount Street, Mayfair' },
+    hero: { image: mspFoil, alt: { en: 'A wall of foil rolls in every colour above the presses in the Mount Street Printers workshop', ro: 'Un perete de role de folie în toate culorile, deasupra preselor din atelierul Mount Street Printers' } },
+    palette: { swatches: ['#E0B25A', '#C8502F', '#1F2A4F'], bg: '#F7EEE6', ink: '#1F2A4F' },
+    gallery: [
+      { image: mspPress, alt: { en: 'A century-old die-stamping press inked in blue', ro: 'O presă de die-stamping veche de un secol, cu cerneală albastră' } },
+      { image: mspCards, alt: { en: 'Lea’s own business cards, printed at Mount Street Printers', ro: 'Cărțile de vizită ale Leei, tipărite la Mount Street Printers' } },
+      { image: mspCardTools, alt: { en: 'A business card on the workbench with the copper plate and press tools', ro: 'O carte de vizită pe banc, cu placa de cupru și uneltele presei' } },
+    ],
     en: {
       kind: 'Operations & systems',
       role: 'Operations Manager',
