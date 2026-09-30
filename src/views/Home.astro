@@ -1,11 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Carousel from '../components/Carousel.astro';
 import { ui, offers, path, type Lang } from '../i18n/ui';
-import tiles from '../assets/work/tiles.jpg';
-import lobby from '../assets/work/watchhouse/lobby-1.jpg';
-import ranunculus from '../assets/art/ranunculus.jpg';
 
 interface Props {
   lang: Lang;
@@ -50,9 +46,10 @@ const copy = {
   <div class="checker" aria-hidden="true"></div>
 
   <section class="statement" data-reveal>
-    <p class="serif">
-      {statement[0]}<span class="pill" aria-hidden="true"><Image src={tiles} alt="" widths={[160, 320]} sizes="120px" /></span>{'. '}{statement[1]}<span class="pill" aria-hidden="true"><Image src={lobby} alt="" widths={[160, 320]} sizes="120px" /></span>{', '}{statement[2]}<span class="pill" aria-hidden="true"><Image src={ranunculus} alt="" widths={[160, 320]} sizes="120px" /></span>{', '}<em>{statement[3]}</em>
-    </p>
+    <blockquote>
+      <p class="serif">{statement[0]}. {statement[1]}, {statement[2]}, <em>{statement[3]}</em></p>
+    </blockquote>
+    <p class="label sign"><span class="rule" aria-hidden="true"></span>Lea Tămășiloniu</p>
   </section>
 
   <section class="help" aria-labelledby="help-title">
@@ -125,34 +122,35 @@ const copy = {
     gap: 12px;
   }
 
-  /* ---------- Statement with inline images ---------- */
+  /* ---------- Statement (a quote, signed) ---------- */
   .statement {
     background: var(--blush);
-    padding: clamp(88px, 12vw, 180px) var(--gutter);
+    padding: clamp(96px, 14vw, 200px) clamp(20px, 16vw, 230px);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
   }
 
-  .statement p {
-    font-size: clamp(30px, 4.1vw, 60px);
-    line-height: 1.22;
-    letter-spacing: -0.01em;
-    max-width: 1180px;
+  .statement blockquote {
+    margin: 0;
   }
 
-  .pill {
-    display: inline-block;
-    width: 1.7em;
-    height: 0.82em;
-    margin: 0 0.04em 0 0.2em;
-    border-radius: 999px;
-    overflow: hidden;
-    vertical-align: -0.08em;
-    background: var(--line-blush);
+  .statement .serif {
+    font-size: clamp(28px, 3.2vw, 46px);
+    line-height: 1.32;
+    letter-spacing: -0.005em;
   }
 
-  .pill :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .sign {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .rule {
+    width: 48px;
+    height: 1px;
+    background: var(--chocolate);
   }
 
   /* ---------- How I can help ---------- */
