@@ -1,6 +1,19 @@
 import type { ImageMetadata } from 'astro';
 import tiles from '../assets/work/tiles.jpg';
-import diary from '../assets/work/diary.jpg';
+import demInvitation from '../assets/work/demystified/invitation.jpg';
+import demTickets from '../assets/work/demystified/tickets.jpg';
+import demEnvelope from '../assets/work/demystified/envelope.jpg';
+import demMaking from '../assets/work/demystified/making-impressions.jpg';
+import demTicketDie from '../assets/work/demystified/ticket-die.jpg';
+import demBooklet from '../assets/work/demystified/booklet.jpg';
+import demQuote from '../assets/work/demystified/quote-card.jpg';
+import demInk from '../assets/work/demystified/ink-cards.jpg';
+import demDrinks from '../assets/work/demystified/drinks.jpg';
+import demPress from '../assets/work/demystified/press.jpg';
+import demLea from '../assets/work/demystified/lea.jpg';
+import demPanel from '../assets/work/demystified/panel.jpg';
+import demSpeaker from '../assets/work/demystified/speaker.jpg';
+import demGuests from '../assets/work/demystified/guests.jpg';
 import impInvitation from '../assets/work/impressed/invitation.jpg';
 import impFoilPattern from '../assets/work/impressed/foil-pattern.jpg';
 import impFoilLetters from '../assets/work/impressed/foil-letters.jpg';
@@ -45,6 +58,8 @@ export interface Project {
   /** Card image. Some projects still use Lea's own photographs as placeholders. */
   image?: ImageMetadata;
   alt?: { en: string; ro: string };
+  /** optional different image for the top of the project page */
+  hero?: { image: ImageMetadata; alt: { en: string; ro: string } };
   palette: Palette;
   /** extra photos shown on the project page */
   gallery?: { image: ImageMetadata; alt: { en: string; ro: string } }[];
@@ -98,21 +113,45 @@ export const projects: Project[] = [
     name: 'MSP × GF Smith',
     client: 'Mount Street Printers × GF Smith',
     year: '2026',
-    image: diary,
-    alt: { en: 'Pink linen-bound 2025 diary on a hot pink cover, with a rainbow of light', ro: 'Agendă 2025 legată în pânză roz, pe o copertă roz aprins, cu un curcubeu de lumină' },
-    palette: { swatches: ['#C0828B', '#88263C', '#060505'], bg: '#F5EBEC', ink: '#88263C' },
-    soon: true,
+    image: demInvitation,
+    alt: { en: 'The Die-Stamping, Demystified invitation: mint card with blue, pink, green, yellow and gold die-stamped lines', ro: 'Invitația Die-Stamping, Demystified: carton mentă cu linii în albastru, roz, verde, galben și auriu, imprimate prin die-stamping' },
+    palette: { swatches: ['#CFE8DA', '#D63A8A', '#2F6FD0'], bg: '#EEF6F1', ink: '#1F3F80' },
+    gallery: [
+      { image: demTickets, alt: { en: 'Die-stamped Mount Street Printers ticket sleeves and invitations in blue and mint', ro: 'Mâneci de bilet și invitații Mount Street Printers în albastru și mentă, realizate prin die-stamping' } },
+      { image: demEnvelope, alt: { en: 'Pink envelope with blue die-stamped address and blind-embossed rings', ro: 'Plic roz cu adresa imprimată prin die-stamping în albastru și cercuri embosate' } },
+      { image: demMaking, alt: { en: '"Making Impressions" blind-embossed on blue card', ro: '„Making Impressions” embosat pe carton albastru' } },
+      { image: demTicketDie, alt: { en: 'The ticket sleeve next to the brass die that stamped it', ro: 'Mâneca de bilet lângă clișeul de alamă cu care a fost imprimată' } },
+      { image: demBooklet, alt: { en: 'The "Die Stamping: The Art Explained" booklet', ro: 'Broșura „Die Stamping: The Art Explained”' } },
+      { image: demQuote, alt: { en: 'A printed card: "Like a live performance, working on a century-old press demands rhythm, instinct and attention."', ro: 'Un card tipărit: „Like a live performance, working on a century-old press demands rhythm, instinct and attention.”' } },
+      { image: demInk, alt: { en: '"The smell of the ink, the roar of the press" cards', ro: 'Cărțile „The smell of the ink, the roar of the press”' } },
+      { image: demDrinks, alt: { en: 'Half-moon drinks menus in blue and mint', ro: 'Meniuri de băuturi în formă de semilună, albastre și mentă' } },
+      { image: demPress, alt: { en: 'Guests filming a live die-stamping demonstration on the press', ro: 'Invitați filmând o demonstrație live de die-stamping la presă' } },
+      { image: demLea, alt: { en: 'Lea hosting the evening', ro: 'Lea prezentând seara' } },
+      { image: demPanel, alt: { en: 'The panel talk', ro: 'Discuția de panel' } },
+      { image: demSpeaker, alt: { en: 'A speaker addressing a full room', ro: 'Un vorbitor în fața unei săli pline' } },
+      { image: demGuests, alt: { en: 'Guests talking after the talks', ro: 'Invitați stând de vorbă după prezentări' } },
+    ],
     en: {
-      kind: 'Industry event',
+      kind: 'Die-Stamping, Demystified: An Evening with Mount Street Printers x GF Smith',
       role: 'Planning & delivery',
-      intro: 'My most recent industry event, created with GF Smith.',
-      points: [],
+      intro: 'An evening that opened up the craft of die-stamping, with talks, a live press and printed pieces made for the night. Hosted with GF Smith on Thursday 11 June 2026.',
+      points: [
+        'Planned and delivered the evening end to end, from partners and speakers to guests and the running order on the night.',
+        'Produced the printed pieces: die-stamped invitations and ticket sleeves, envelopes, a booklet explaining the craft, cards and drinks menus.',
+        'Brought die-stamping to life with a live press demonstration and a panel talk.',
+        'Hosted the evening and welcomed guests.',
+      ],
     },
     ro: {
-      kind: 'Eveniment de industrie',
+      kind: 'Die-Stamping, Demystified: An Evening with Mount Street Printers x GF Smith',
       role: 'Planificare și execuție',
-      intro: 'Cel mai recent eveniment de industrie, creat alături de GF Smith.',
-      points: [],
+      intro: 'O seară care a deschis meșteșugul die-stamping-ului (tiparul în relief cu matriță gravată), cu prezentări, o presă funcționând live și materiale tipărite special pentru eveniment. Organizată împreună cu GF Smith, joi, 11 iunie 2026.',
+      points: [
+        'Am planificat și livrat seara de la cap la coadă, de la parteneri și vorbitori la invitați și desfășurarea evenimentului.',
+        'Am produs materialele tipărite: invitații și mâneci de bilet prin die-stamping, plicuri, o broșură care explică tehnica, carduri și meniuri de băuturi.',
+        'Am adus tehnica la viață printr-o demonstrație live la presă și o discuție de panel.',
+        'Am prezentat seara și am primit invitații.',
+      ],
     },
   },
   {
@@ -164,8 +203,8 @@ export const projects: Project[] = [
     year: '2023–24',
     image: whCans,
     alt: { en: 'Rows of WatchHouse nitrogen-infused coffee cans on a green counter', ro: 'Rânduri de doze de cafea WatchHouse cu azot, pe o tejghea verde' },
+    hero: { image: whLobby1, alt: { en: 'WatchHouse window graphics in the Art Deco lobby of the Chrysler Building, New York', ro: 'Grafica WatchHouse în vitrinele din holul Art Deco al Chrysler Building, New York' } },
     gallery: [
-      { image: whLobby1, alt: { en: 'WatchHouse window graphics in the Art Deco lobby of the Chrysler Building, New York', ro: 'Grafica WatchHouse în vitrinele din holul Art Deco al Chrysler Building, New York' } },
       { image: whStreetWindows, alt: { en: 'WatchHouse window posters in New York: latte art and the London Bermondsey shop', ro: 'Afișe WatchHouse în vitrine, la New York: latte art și cafeneaua din Bermondsey, Londra' } },
       { image: whLobbyWide, alt: { en: 'The Chrysler Building lobby with the WatchHouse windows', ro: 'Holul Chrysler Building cu vitrinele WatchHouse' } },
       { image: whPastry, alt: { en: 'Pastries and cans of nitro coffee on a green WatchHouse counter', ro: 'Patiserie și doze de cafea nitro pe o tejghea verde WatchHouse' } },

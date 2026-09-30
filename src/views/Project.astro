@@ -42,6 +42,7 @@ if (pending && placed.length) {
   const last = placed[placed.length - 1];
   last.col = last.col === '1 / span 6' ? '3 / span 8' : '5 / span 4';
 }
+const top = p.hero ?? (p.image ? { image: p.image, alt: p.alt } : undefined);
 ---
 <Base
   lang={lang}
@@ -62,13 +63,13 @@ if (pending && placed.length) {
       </dl>
     </header>
 
-    {p.image && (
-      <figure class:list={['visual', { portrait: p.image.height > p.image.width }]}>
-        <Image src={p.image} alt={p.alt?.[lang] ?? ''} widths={[640, 960, 1280, 1600]} sizes="(max-width: 900px) 100vw, 60vw" loading="eager" />
+    {top && (
+      <figure class:list={['visual', { portrait: top.image.height > top.image.width }]}>
+        <Image src={top.image} alt={top.alt?.[lang] ?? ''} widths={[640, 960, 1280, 1600]} sizes="(max-width: 900px) 100vw, 60vw" loading="eager" />
       </figure>
     )}
 
-    {p.image && (
+    {p.image && !p.hero && (
       <section class="palette" aria-label={t.project.palette}>
         <p class="label">{t.project.palette}</p>
         <ul>
