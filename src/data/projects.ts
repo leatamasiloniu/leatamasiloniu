@@ -1,6 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import tiles from '../assets/work/tiles.jpg';
 import dogMap from '../assets/work/dog/map.jpg';
+import dogBook from '../assets/work/dog/book.jpg';
 import dogCounter from '../assets/work/dog/launch-counter.jpg';
 import dogBar from '../assets/work/dog/launch-bar.jpg';
 import dogReading from '../assets/work/dog/reading.jpg';
@@ -256,12 +257,13 @@ export const projects: Project[] = [
     italic: true,
     client: 'Jonathan Posner, Buchanan Press',
     year: '2024–25',
-    image: dogMap,
-    alt: { en: 'Lea’s hand-painted map of Hampstead Heath in the book: The Route of our Thousand Days', ro: 'Harta Hampstead Heath pictată de mână de Lea, în carte: The Route of our Thousand Days' },
+    image: dogBook,
+    alt: { en: 'The Whole World and His Dog by Jonathan Posner, lying on a sunlit brick wall', ro: 'The Whole World and His Dog de Jonathan Posner, pe un zid de cărămidă în soare' },
     hero: { image: dogCounter, alt: { en: 'Copies of the book tied with red ribbon, next to postcards, at the launch', ro: 'Exemplare ale cărții legate cu panglică roșie, lângă cărți poștale, la lansare' } },
-    palette: { swatches: ['#E6CF98', '#3F8A2C', '#A8322B'], bg: '#F5F1E4', ink: '#1F4518' },
+    palette: { swatches: ['#D9C27A', '#9A5A45', '#5E6B3A'], bg: '#F6F0E6', ink: '#5A3325' },
     link: { href: 'https://andhisdog.com', en: 'Buy the book at andhisdog.com', ro: 'Cartea se poate cumpăra de pe andhisdog.com' },
     gallery: [
+      { image: dogMap, alt: { en: 'Lea’s hand-painted map of Hampstead Heath in the book: The Route of our Thousand Days', ro: 'Harta Hampstead Heath pictată de mână de Lea, în carte: The Route of our Thousand Days' } },
       { image: dogBar, alt: { en: 'Guests at the launch evening, along the coffee bar', ro: 'Invitați la seara de lansare, de-a lungul barului' } },
       { image: dogReading, alt: { en: 'Jonathan Posner reading on the stairs, his dog beside him', ro: 'Jonathan Posner citind pe scări, cu câinele alături' } },
       { image: dogBookshop, alt: { en: 'The Whole World and His Dog in a bookshop window', ro: 'The Whole World and His Dog în vitrina unei librării' } },
