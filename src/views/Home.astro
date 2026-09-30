@@ -3,10 +3,8 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Carousel from '../components/Carousel.astro';
 import { ui, offers, path, type Lang } from '../i18n/ui';
-import { flowers, doodles } from '../data/art';
 import tiles from '../assets/work/tiles.jpg';
 import lobby from '../assets/work/watchhouse/lobby-1.jpg';
-import bouquet from '../assets/art/bouquet.jpg';
 import ranunculus from '../assets/art/ranunculus.jpg';
 
 interface Props {
@@ -28,42 +26,24 @@ const copy = {
     help: 'How I can help',
     helpLead: 'Most businesses don’t need more work. They need a clearer way of working.',
     work: 'Selected work',
-    practice: 'Where the eye comes from',
-    practiceLead: 'Painting and drawing keep my eye sharp. The same attention goes into every business I work with.',
-    practiceLink: 'Painting & drawing',
   },
   ro: {
     help: 'Cum te pot ajuta',
     helpLead: 'Majoritatea afacerilor nu au nevoie de mai multă muncă. Au nevoie de un mod mai clar de a lucra.',
     work: 'Proiecte selectate',
-    practice: 'De unde vine ochiul',
-    practiceLead: 'Pictura și desenul îmi țin ochiul exersat. Aceeași atenție o aduc în fiecare afacere cu care lucrez.',
-    practiceLink: 'Pictură și desen',
   },
 }[lang];
-
-const teaser = [flowers[2], doodles[1], flowers[0]];
 ---
 <Base lang={lang} alt={alt} current="home">
   <section class="hero">
-    <p class="hero-top">
+    <div class="hero-centre">
+      <img class="hero-mark" src="/monogram.svg" alt="" width="168" height="174" />
+      <h1 class="serif">Lea Tămășiloniu</h1>
+      <p class="label hero-line">{t.heroLine}</p>
+    </div>
+    <div class="hero-foot label">
       <span>{t.studio}</span>
       <span class="avail"><span class="dot" aria-hidden="true"></span>{t.available}</span>
-    </p>
-
-    <h1 class="hero-name serif">
-      <span class="l1">
-        <span class="word">Lea</span>
-        <span class="arch" aria-hidden="true">
-          <Image src={bouquet} alt="" widths={[300, 500, 700]} sizes="(max-width: 700px) 30vw, 22vw" loading="eager" />
-        </span>
-      </span>
-      <span class="l2">Tămășiloniu</span>
-    </h1>
-
-    <div class="hero-foot">
-      <p class="hero-line serif">{t.heroLine}.</p>
-      <a class="hero-cta" href={path(lang, 'contact')}>{t.cta.a} <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
@@ -94,102 +74,55 @@ const teaser = [flowers[2], doodles[1], flowers[0]];
 
   <Carousel lang={lang} title={copy.work} moreHref={path(lang, 'work')} moreLabel={t.allWork} />
 
-  <section class="practice" aria-labelledby="practice-title">
-    <div class="p-text" data-reveal>
-      <h2 id="practice-title" class="serif sec-title">{copy.practice}</h2>
-      <p>{copy.practiceLead}</p>
-      <a class="more" href={path(lang, 'art')}>{copy.practiceLink} <span aria-hidden="true">→</span></a>
-    </div>
-    <a class="p-images" href={path(lang, 'art')} aria-label={copy.practiceLink}>
-      {teaser.map((a, i) => (
-        <span class:list={['p-img', `p-img-${i}`]} data-reveal>
-          <Image src={a.image} alt="" widths={[300, 500, 800]} sizes="(max-width: 700px) 45vw, 22vw" />
-        </span>
-      ))}
-    </a>
-  </section>
 </Base>
 
 <style>
   /* ---------- Hero ---------- */
   .hero {
-    min-height: min(calc(100svh - 110px), 940px);
+    min-height: min(calc(100svh - 110px), 902px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: clamp(28px, 4vw, 56px);
-    padding: clamp(12px, 2vw, 24px) var(--gutter) clamp(36px, 5vw, 64px);
+    padding: clamp(40px, 8vh, 96px) var(--gutter) 48px;
+    gap: 64px;
   }
 
-  .hero-top {
+  .hero-centre {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    border-top: 1px solid var(--line-milk);
-    padding-top: 16px;
-  }
-
-  .avail {
-    display: inline-flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: clamp(28px, 4vw, 44px);
+    text-align: center;
   }
 
-  .hero-name {
-    display: flex;
-    flex-direction: column;
-    font-size: min(14.2vw, 232px);
-    line-height: 0.86;
-    letter-spacing: -0.035em;
+  .hero-mark {
+    width: clamp(110px, 12vw, 168px);
   }
 
-  .l1 {
-    display: flex;
-    align-items: flex-end;
-    gap: 0.12em;
+  .hero h1 {
+    font-size: clamp(40px, 7.2vw, 104px);
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
-  .arch {
-    display: block;
-    width: 0.62em;
-    height: 0.8em;
-    margin-bottom: 0.06em;
-    border-radius: 999px 999px 0 0;
-    overflow: hidden;
-    background: var(--blush);
-  }
-
-  .arch :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 30%;
-  }
-
-  .l2 {
-    padding-left: 0.5em;
+  .hero-line {
+    letter-spacing: 0.46em;
   }
 
   .hero-foot {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    gap: 24px;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    letter-spacing: 0.26em;
   }
 
-  .hero-line {
-    font-style: italic;
-    font-size: clamp(24px, 2.6vw, 38px);
-    line-height: 1.15;
-  }
-
-  .hero-cta {
-    font-size: 15px;
-    border-bottom: 1px solid var(--chocolate);
-    padding-bottom: 4px;
+  .avail {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
   }
 
   /* ---------- Statement with inline images ---------- */
@@ -295,62 +228,8 @@ const teaser = [flowers[2], doodles[1], flowers[0]];
     padding-bottom: 4px;
   }
 
-  /* ---------- Practice teaser ---------- */
-  .practice {
-    background: var(--blush);
-    padding: var(--section-y) var(--gutter);
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: clamp(40px, 6vw, 96px);
-    align-items: center;
-  }
-
-  .p-text {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .p-text p {
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 1.7;
-    max-width: 420px;
-  }
-
-  .p-images {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(12px, 2vw, 28px);
-    align-items: start;
-  }
-
-  .p-img {
-    display: block;
-    transition: transform 0.4s ease;
-  }
-
-  .p-img :global(img) {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-  }
-
-  .p-img-1 {
-    margin-top: clamp(40px, 6vw, 96px);
-  }
-
-  .p-img-2 {
-    margin-top: clamp(16px, 2.5vw, 40px);
-  }
-
-  .p-images:hover .p-img {
-    transform: translateY(-6px);
-  }
-
   @media (max-width: 900px) {
-    .help-head,
-    .practice {
+    .help-head {
       grid-template-columns: 1fr;
     }
 
@@ -364,30 +243,22 @@ const teaser = [flowers[2], doodles[1], flowers[0]];
   }
 
   @media (max-width: 560px) {
-    .hero {
-      min-height: auto;
-      gap: 56px;
-      padding-bottom: 48px;
-    }
-
-    .hero-top {
+    .hero-foot {
       flex-direction: column;
-      gap: 8px;
-      font-size: 12px;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.18em;
     }
 
-    .hero-name {
-      font-size: 15.6vw;
-    }
-
-    .l2 {
-      padding-left: 0;
+    .hero-line {
+      letter-spacing: 0.3em;
+      font-size: 11px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .offer-list h3,
-    .p-img {
+    .offer-list h3 {
       transition: none;
     }
   }
