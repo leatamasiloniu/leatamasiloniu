@@ -2,7 +2,13 @@ import type { ImageMetadata } from 'astro';
 import tiles from '../assets/work/tiles.jpg';
 import diary from '../assets/work/diary.jpg';
 import candles from '../assets/work/candles.jpg';
-import roses from '../assets/work/roses.jpg';
+import whLobby1 from '../assets/work/watchhouse/lobby-1.jpg';
+import whLobbyWide from '../assets/work/watchhouse/lobby-wide.jpg';
+import whStreetWindows from '../assets/work/watchhouse/street-windows.jpg';
+import whStreetFront from '../assets/work/watchhouse/street-front.jpg';
+import whStreetCorner from '../assets/work/watchhouse/street-corner.jpg';
+import whPastry from '../assets/work/watchhouse/pastry.jpg';
+import whCans from '../assets/work/watchhouse/cans.jpg';
 
 export interface Palette {
   swatches: [string, string, string];
@@ -27,10 +33,12 @@ export interface Project {
   /** e.g. '2025' or '2023–24'. For current work set `since` instead. */
   year: string;
   since?: boolean;
-  /** Placeholder photos for now: Lea's own photographs, to be swapped for project imagery. */
+  /** Card image. Some projects still use Lea's own photographs as placeholders. */
   image?: ImageMetadata;
   alt?: { en: string; ro: string };
   palette: Palette;
+  /** extra photos shown on the project page */
+  gallery?: { image: ImageMetadata; alt: { en: string; ro: string } }[];
   soon?: boolean;
   en: Localised;
   ro: Localised;
@@ -132,9 +140,17 @@ export const projects: Project[] = [
     name: 'WatchHouse',
     client: 'WatchHouse',
     year: '2023–24',
-    image: roses,
-    alt: { en: 'Garden roses in a green glass vase on a steel counter', ro: 'Trandafiri de grădină într-o vază de sticlă verde, pe un blat de oțel' },
-    palette: { swatches: ['#E29876', '#91AA3D', '#9F4C4D'], bg: '#FAEFE9', ink: '#9F4C4D' },
+    image: whLobby1,
+    alt: { en: 'WatchHouse window graphics in the Art Deco lobby of the Chrysler Building, New York', ro: 'Grafica WatchHouse în vitrinele din holul Art Deco al Chrysler Building, New York' },
+    gallery: [
+      { image: whStreetWindows, alt: { en: 'WatchHouse window posters in New York: latte art and the London Bermondsey shop', ro: 'Afișe WatchHouse în vitrine, la New York: latte art și cafeneaua din Bermondsey, Londra' } },
+      { image: whLobbyWide, alt: { en: 'The Chrysler Building lobby with the WatchHouse windows', ro: 'Holul Chrysler Building cu vitrinele WatchHouse' } },
+      { image: whPastry, alt: { en: 'Pastries and cans of nitro coffee on a green WatchHouse counter', ro: 'Patiserie și doze de cafea nitro pe o tejghea verde WatchHouse' } },
+      { image: whStreetFront, alt: { en: 'WatchHouse storefront graphics in New York, with a QR code for the app', ro: 'Grafica vitrinei WatchHouse din New York, cu un cod QR pentru aplicație' } },
+      { image: whStreetCorner, alt: { en: 'A WatchHouse site in New York before opening, seen from the street', ro: 'O locație WatchHouse din New York înainte de deschidere, văzută din stradă' } },
+      { image: whCans, alt: { en: 'Rows of WatchHouse nitrogen-infused coffee cans', ro: 'Rânduri de doze de cafea WatchHouse cu azot' } },
+    ],
+    palette: { swatches: ['#E1CEA5', '#C87D20', '#673C17'], bg: '#F8F1E6', ink: '#673C17' },
     en: {
       kind: 'Packaging & print production',
       role: 'Creative Designer',

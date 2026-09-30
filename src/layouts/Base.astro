@@ -57,6 +57,7 @@ const ogImage = new URL('/og.png', Astro.site);
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
     <a class="skip-link" href="#main">{ui[lang].skip}</a>
@@ -69,6 +70,23 @@ const ogImage = new URL('/og.png', Astro.site);
       <span aria-hidden="true">↑</span>
     </button>
     <script>
+      // Gentle fade-up as sections enter the screen. Skipped for reduced-motion users.
+      const revealEls = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+        revealEls.forEach((el) => el.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          }),
+          { rootMargin: '0px 0px -8% 0px' },
+        );
+        revealEls.forEach((el) => io.observe(el));
+      }
+
       const topBtn = document.querySelector<HTMLButtonElement>('.to-top');
       if (topBtn) {
         const toggle = () => { topBtn.hidden = window.scrollY < window.innerHeight; };

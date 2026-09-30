@@ -61,6 +61,16 @@ const nextP = projects[(idx + 1) % projects.length];
       {p.soon && <p class="soon">{t.project.soon}</p>}
     </section>
 
+    {p.gallery && (
+      <section class="gallery" aria-label={p.name}>
+        {p.gallery.map((g, i) => (
+          <figure class:list={['g-item', `g-${i % 6}`]}>
+            <Image src={g.image} alt={g.alt[lang]} widths={[500, 800, 1200, 1600]} sizes="(max-width: 700px) 100vw, 50vw" />
+          </figure>
+        ))}
+      </section>
+    )}
+
     <a class="next" href={projectPath(lang, nextP.slug)}>
       <span class="label">{t.project.next}</span>
       <span class:list={['serif', 'next-name', { italic: nextP.italic }]}><Glyphs text={nextP.name} /> <span class="glyph" aria-hidden="true">→</span></span>
@@ -195,6 +205,42 @@ const nextP = projects[(idx + 1) % projects.length];
     font-style: italic;
     color: var(--cocoa);
     align-self: end;
+  }
+
+  .gallery {
+    padding: 0 var(--gutter) var(--section-y);
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(16px, 2.5vw, 36px);
+    align-items: start;
+  }
+
+  .g-item {
+    margin: 0;
+  }
+
+  .g-item :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  /* editorial rhythm: wide, tall offset, tall, wide offset, tall, tall offset */
+  .g-0 { grid-column: 1 / span 7; }
+  .g-1 { grid-column: 9 / span 4; margin-top: clamp(40px, 8vw, 140px); }
+  .g-2 { grid-column: 1 / span 4; }
+  .g-3 { grid-column: 6 / span 7; margin-top: clamp(40px, 8vw, 120px); }
+  .g-4 { grid-column: 2 / span 5; }
+  .g-5 { grid-column: 8 / span 4; margin-top: clamp(40px, 8vw, 140px); }
+
+  @media (max-width: 700px) {
+    .gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .g-item {
+      grid-column: 1 / -1 !important;
+      margin-top: 0 !important;
+    }
   }
 
   .next {

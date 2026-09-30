@@ -5,13 +5,19 @@ import { ui, projectPath, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
+  title?: string;
+  moreHref?: string;
+  moreLabel?: string;
 }
-const { lang } = Astro.props;
+const { lang, title, moreHref, moreLabel } = Astro.props;
 const t = ui[lang];
 ---
 <section class="carousel" aria-labelledby="closer-title">
   <div class="top">
-    <h2 id="closer-title" class="label">{t.closer}</h2>
+    <div class="head">
+      <h2 id="closer-title" class="serif title">{title ?? t.closer}</h2>
+      {moreHref && <a class="more" href={moreHref}>{moreLabel} <span aria-hidden="true">→</span></a>}
+    </div>
     <div class="ctrl">
       <button type="button" class="prev" aria-label={t.prev}>←</button>
       <button type="button" class="next" aria-label={t.next}>→</button>
@@ -56,8 +62,28 @@ const t = ui[lang];
   .top {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
+    gap: 20px;
     padding: 0 var(--gutter);
+  }
+
+  .head {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(16px, 3vw, 40px);
+    flex-wrap: wrap;
+  }
+
+  .title {
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .more {
+    font-size: 15px;
+    border-bottom: 1px solid var(--chocolate);
+    padding-bottom: 4px;
   }
 
   .ctrl {
