@@ -36,11 +36,11 @@ const kind = p[lang].kind;
     )}
     <div class="pal" aria-hidden="true">
       <div class="sw"><span></span><span></span><span></span></div>
-      <p class="pal-name"><span class="sans">{p.name}</span> — <em class="serif">{kind}</em></p>
+      <p class="pal-name"><span class="sans">{p.name}</span><em class="serif">{kind}</em></p>
     </div>
   </div>
   <div class="strip" aria-hidden="true"><span></span><span></span><span></span></div>
-  <p class="cap"><span class:list={{ italic: p.italic }}>{p.name}</span> <span class="glyph">—</span> <em class="serif">{kind}</em></p>
+  <p class="cap"><span class:list={{ italic: p.italic }}>{p.name}</span><em class="serif">{kind}</em></p>
 </a>
 
 <style>
@@ -135,6 +135,13 @@ const kind = p[lang].kind;
   .strip {
     display: none;
     height: 8px;
+  }
+
+  .cap,
+  .pal-name {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .cap {

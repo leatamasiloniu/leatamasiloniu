@@ -24,7 +24,9 @@ export interface Project {
   name: string;
   italic?: boolean;
   client: string;
+  /** e.g. '2025' or '2023–24'. For current work set `since` instead. */
   year: string;
+  since?: boolean;
   /** Placeholder photos for now: Lea's own photographs, to be swapped for project imagery. */
   image?: ImageMetadata;
   alt?: { en: string; ro: string };
@@ -42,7 +44,8 @@ export const projects: Project[] = [
     slug: 'mount-street-printers',
     name: 'Mount Street Printers',
     client: 'Mount Street Printers, Mayfair',
-    year: '2024 —',
+    year: '2024',
+    since: true,
     image: tiles,
     alt: { en: 'Green and white marble checkerboard floor in sunlight', ro: 'Pardoseală de marmură în carouri verzi și albe, în lumina soarelui' },
     palette: { swatches: ['#CBD6A5', '#92A163', '#152119'], bg: '#F7F8F1', ink: '#152119' },
@@ -128,32 +131,32 @@ export const projects: Project[] = [
     slug: 'watchhouse',
     name: 'WatchHouse',
     client: 'WatchHouse',
-    year: '2023 — 24',
+    year: '2023–24',
     image: roses,
     alt: { en: 'Garden roses in a green glass vase on a steel counter', ro: 'Trandafiri de grădină într-o vază de sticlă verde, pe un blat de oțel' },
     palette: { swatches: ['#E29876', '#91AA3D', '#9F4C4D'], bg: '#FAEFE9', ink: '#9F4C4D' },
     en: {
       kind: 'Packaging & print production',
       role: 'Creative Designer',
-      intro: 'Packaging, print and brand production for a specialty coffee brand — from London flagships to the Chrysler Building in New York.',
+      intro: 'Packaging, print and brand production for a specialty coffee brand, from London flagships to the Chrysler Building in New York.',
       points: [
         'Ran packaging and production projects end to end: brief, suppliers, print finishes and delivery.',
         'Produced print-ready artwork for the Chrysler Building in New York and UK flagship sites.',
         'Cut print costs by 25% by centralising the print supplier relationship.',
         'Restructured the internal asset library, reducing delivery delays.',
-        'Before that, as House Supervisor (2020 — 23), led day-to-day operations in a high-volume, premium setting.',
+        'Before that, as House Supervisor (2020–23), led day-to-day operations in a high-volume, premium setting.',
       ],
     },
     ro: {
       kind: 'Ambalaje și producție tipografică',
       role: 'Creative Designer',
-      intro: 'Ambalaje, tipar și producție de brand pentru un brand de cafea de specialitate — de la locațiile din Londra la Chrysler Building din New York.',
+      intro: 'Ambalaje, tipar și producție de brand pentru un brand de cafea de specialitate, de la locațiile din Londra la Chrysler Building din New York.',
       points: [
         'Am coordonat proiecte de ambalare și producție de la cap la coadă: brief, furnizori, finisaje și livrare.',
         'Am pregătit fișiere pentru tipar pentru Chrysler Building din New York și locațiile principale din Marea Britanie.',
         'Am redus costurile de tipar cu 25% prin centralizarea relației cu furnizorul.',
         'Am restructurat biblioteca internă de materiale, reducând întârzierile de livrare.',
-        'Înainte, ca House Supervisor (2020 — 23), am coordonat activitatea zilnică într-un mediu premium, cu volum mare.',
+        'Înainte, ca House Supervisor (2020–23), am coordonat activitatea zilnică într-un mediu premium, cu volum mare.',
       ],
     },
   },
@@ -162,19 +165,24 @@ export const projects: Project[] = [
     name: 'The Whole World and His Dog',
     italic: true,
     client: 'The Whole World and His Dog',
-    year: '2024 — 25',
+    year: '2024–25',
     palette: brand,
     en: {
       kind: 'Illustration & book launch',
       role: 'Illustrator & launch event',
-      intro: 'Illustrations for The Whole World and His Dog — and the launch event that introduced it.',
+      intro: 'Illustrations for The Whole World and His Dog, and the launch event that introduced it.',
       points: ['Illustrated the book.', 'Planned and delivered its launch event.'],
     },
     ro: {
       kind: 'Ilustrație și lansare de carte',
       role: 'Ilustrație și eveniment de lansare',
-      intro: 'Ilustrațiile pentru The Whole World and His Dog — și evenimentul de lansare care l-a prezentat.',
+      intro: 'Ilustrațiile pentru The Whole World and His Dog și evenimentul de lansare care l-a prezentat.',
       points: ['Am ilustrat cartea.', 'Am planificat și organizat evenimentul de lansare.'],
     },
   },
 ];
+
+/** Year as shown on the site, e.g. "Since 2024" / "Din 2024". */
+export function yearLabel(p: Project, since: string): string {
+  return p.since ? `${since} ${p.year}` : p.year;
+}

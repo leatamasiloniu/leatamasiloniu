@@ -2,7 +2,7 @@
 import Glyphs from '../components/Glyphs.astro';
 import Base from '../layouts/Base.astro';
 import Cta from '../components/Cta.astro';
-import { ui, path, other, type Lang } from '../i18n/ui';
+import { ui, path, other, pageTitle, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -11,46 +11,46 @@ const { lang } = Astro.props;
 const t = ui[lang];
 const copy = {
   en: {
-    lead: 'Operations with a designer’s eye — bringing structure to creative businesses.',
+    lead: 'Operations with a designer’s eye, for creative businesses.',
     paras: [
       'I’ve spent the past years inside premium creative businesses in London: at WatchHouse, from running the floor to creative design, and now as Operations Manager at Mount Street Printers in Mayfair.',
-      'I trained as an interior designer at the University of the Arts London, graduating with First Class Honours. The way I work still comes from there: listen first — to the people, the space and the business — then build the structure that lets everything run.',
-      'Lea Tămășiloniu Studio is where it all comes together: operations, project delivery, and brand and print production for creative businesses. I’ve recently started an MBA, adding a sharper commercial lens to the practice.',
+      'I trained as an interior designer at the University of the Arts London, graduating with First Class Honours. The way I work still comes from there. I listen first, to the people, the space and the business, then build the structure that lets everything run.',
+      'Lea Tămășiloniu Studio is my consultancy. I help creative businesses with their operations, their projects and events, and their brand and print production. I’ve recently started an MBA, which adds a sharper commercial lens to the work.',
     ],
     origin: 'Born in Romania · trained in London',
     background: 'Background',
     timeline: [
-      ['2026 —', 'MBA', 'In progress'],
-      ['2024 —', 'Operations Manager', 'Mount Street Printers'],
-      ['2023 — 24', 'Creative Designer', 'WatchHouse'],
-      ['2020 — 23', 'House Supervisor', 'WatchHouse'],
-      ['2021 — 22', 'Design Intern', 'HCL Architects'],
-      ['2019 — 22', 'BA (Hons) Interior Design, First Class', 'University of the Arts London'],
+      ['Since 2026', 'MBA', 'In progress'],
+      ['Since 2024', 'Operations Manager', 'Mount Street Printers'],
+      ['2023–24', 'Creative Designer', 'WatchHouse'],
+      ['2020–23', 'House Supervisor', 'WatchHouse'],
+      ['2021–22', 'Design Intern', 'HCL Architects'],
+      ['2019–22', 'BA (Hons) Interior Design, First Class', 'University of the Arts London'],
     ],
-    description: 'Lea Tămășiloniu: operations and project lead with a designer’s training, bringing structure to creative businesses.',
+    description: 'Lea Tămășiloniu: operations consultant with a designer’s training, helping creative businesses run well.',
   },
   ro: {
-    lead: 'Operațiuni, cu ochi de designer — aduc structură în afacerile creative.',
+    lead: 'Operațiuni cu ochi de designer, pentru afaceri creative.',
     paras: [
       'În ultimii ani am lucrat în afaceri creative premium din Londra: la WatchHouse, de la coordonarea echipei la design creativ, iar acum ca Operations Manager la Mount Street Printers, în Mayfair.',
-      'Am studiat design de interior la University of the Arts London, pe care am absolvit-o cu First Class Honours. Modul în care lucrez vine tot de acolo: întâi ascult — oamenii, spațiul și afacerea — apoi construiesc structura care face ca totul să funcționeze.',
-      'Lea Tămășiloniu Studio este locul în care toate acestea se întâlnesc: operațiuni, execuție de proiecte și producție de brand și tipar pentru afaceri creative. Recent am început un MBA, care adaugă practicii o perspectivă comercială mai clară.',
+      'Am studiat design de interior la University of the Arts London, pe care am absolvit-o cu First Class Honours. Modul în care lucrez vine tot de acolo. Întâi ascult oamenii, spațiul și afacerea, apoi construiesc structura care face ca totul să funcționeze.',
+      'Lea Tămășiloniu Studio este firma mea de consultanță. Ajut afacerile creative cu operațiunile, cu proiectele și evenimentele lor și cu producția de brand și tipar. Recent am început un MBA, care adaugă muncii mele o perspectivă comercială mai clară.',
     ],
     origin: 'Născută în România · formată la Londra',
     background: 'Parcurs',
     timeline: [
-      ['2026 —', 'MBA', 'În curs'],
-      ['2024 —', 'Operations Manager', 'Mount Street Printers'],
-      ['2023 — 24', 'Creative Designer', 'WatchHouse'],
-      ['2020 — 23', 'House Supervisor', 'WatchHouse'],
-      ['2021 — 22', 'Design Intern', 'HCL Architects'],
-      ['2019 — 22', 'BA (Hons) Design de interior, First Class', 'University of the Arts London'],
+      ['Din 2026', 'MBA', 'În curs'],
+      ['Din 2024', 'Operations Manager', 'Mount Street Printers'],
+      ['2023–24', 'Creative Designer', 'WatchHouse'],
+      ['2020–23', 'House Supervisor', 'WatchHouse'],
+      ['2021–22', 'Design Intern', 'HCL Architects'],
+      ['2019–22', 'BA (Hons) Design de interior, First Class', 'University of the Arts London'],
     ],
-    description: 'Lea Tămășiloniu: operațiuni și coordonare de proiecte, cu formare de designer, pentru afaceri creative.',
+    description: 'Lea Tămășiloniu: consultanță în operațiuni, cu formare de designer, pentru afaceri creative.',
   },
 }[lang];
 ---
-<Base lang={lang} alt={path(other(lang), 'about')} current="about" title={`${t.nav.about} — Lea Tămășiloniu`} description={copy.description}>
+<Base lang={lang} alt={path(other(lang), 'about')} current="about" title={pageTitle(t.nav.about)} description={copy.description}>
   <section class="page-head">
     <h1 class="label">{t.nav.about}</h1>
     <p class="serif lead"><Glyphs text={copy.lead} /></p>

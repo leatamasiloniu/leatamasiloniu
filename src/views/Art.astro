@@ -1,0 +1,351 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import { path, other, pageTitle, type Lang } from '../i18n/ui';
+import { flowers, doodles, type Artwork } from '../data/art';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const copy = {
+  en: {
+    title: 'Painting & drawing',
+    back: 'Savoir-Faire',
+    // Lea's own words, from her portfolio
+    lead: 'A dance between pencil and paper, mind and body, simplicity and complexity.',
+    flowers: 'Flowers',
+    doodles: 'Doodles',
+    open: 'View larger',
+    close: 'Close',
+    prev: 'Previous',
+    next: 'Next',
+    description: 'Flowers and doodles by Lea Tămășiloniu, in watercolour, pastel, pencil and ink.',
+  },
+  ro: {
+    title: 'Pictură și desen',
+    back: 'Savoir-Faire',
+    lead: 'Un dans între creion și hârtie, minte și corp, simplitate și complexitate.',
+    flowers: 'Flori',
+    doodles: 'Desene libere',
+    open: 'Vezi mai mare',
+    close: 'Închide',
+    prev: 'Înapoi',
+    next: 'Înainte',
+    description: 'Flori și desene libere de Lea Tămășiloniu, în acuarelă, pastel, creion și tuș.',
+  },
+}[lang];
+
+const withFull = async (list: Artwork[]) =>
+  Promise.all(list.map(async (a) => ({ ...a, full: (await getImage({ src: a.image, width: 1800, format: 'webp' })).src })));
+const groups = [
+  { id: 'flowers', label: copy.flowers, items: await withFull(flowers) },
+  { id: 'doodles', label: copy.doodles, items: await withFull(doodles) },
+];
+---
+<Base lang={lang} alt={path(other(lang), 'art')} current="savoir" title={pageTitle(copy.title)} description={copy.description}>
+  <section class="page-head">
+    <a class="label back" href={path(lang, 'savoir')}><span aria-hidden="true">←</span> {copy.back}</a>
+    <h1 class="serif title">{copy.title}</h1>
+    <p class="serif lead">{copy.lead}</p>
+  </section>
+
+  {groups.map((g) => (
+    <section class="group" aria-labelledby={`g-${g.id}`}>
+      <h2 id={`g-${g.id}`} class="label">{g.label}</h2>
+      <ul class:list={['masonry', { few: g.items.length <= 4 }]}>
+        {g.items.map((a) => (
+          <li>
+            <button
+              type="button"
+              class="art"
+              data-full={a.full}
+              data-alt={a.alt[lang]}
+              data-year={a.year ?? ''}
+              aria-label={`${copy.open}: ${a.alt[lang]}`}
+              style={`--s1:${a.palette[0]};--s2:${a.palette[1]};--s3:${a.palette[2]}`}
+            >
+              <Image src={a.image} alt={a.alt[lang]} widths={[400, 700, 1000]} sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 30vw" />
+              <span class="strip" aria-hidden="true"><span></span><span></span><span></span></span>
+            </button>
+            {a.year && <p class="year">{a.year}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  <dialog class="lightbox" aria-label={copy.title}>
+    <button type="button" class="lb-close" aria-label={copy.close}>×</button>
+    <button type="button" class="lb-prev" aria-label={copy.prev}>←</button>
+    <figure>
+      <img alt="" />
+      <figcaption></figcaption>
+    </figure>
+    <button type="button" class="lb-next" aria-label={copy.next}>→</button>
+  </dialog>
+
+  <Cta lang={lang} />
+</Base>
+
+<script>
+  const dlg = document.querySelector<HTMLDialogElement>('dialog.lightbox');
+  const items = Array.from(document.querySelectorAll<HTMLButtonElement>('button.art'));
+  if (dlg && items.length) {
+    const img = dlg.querySelector('img')!;
+    const cap = dlg.querySelector('figcaption')!;
+    let i = 0;
+    const show = (n: number) => {
+      i = (n + items.length) % items.length;
+      const d = items[i].dataset;
+      img.src = d.full ?? '';
+      img.alt = d.alt ?? '';
+      cap.textContent = d.year ?? '';
+    };
+    items.forEach((b, n) =>
+      b.addEventListener('click', () => {
+        show(n);
+        dlg.showModal();
+      }),
+    );
+    dlg.querySelector('.lb-prev')!.addEventListener('click', () => show(i - 1));
+    dlg.querySelector('.lb-next')!.addEventListener('click', () => show(i + 1));
+    dlg.querySelector('.lb-close')!.addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg) dlg.close();
+    });
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(i - 1);
+      if (e.key === 'ArrowRight') show(i + 1);
+    });
+    dlg.addEventListener('close', () => items[i]?.focus());
+  }
+</script>
+
+<style>
+  .page-head {
+    padding: clamp(40px, 6vw, 88px) var(--gutter) clamp(48px, 6vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .back {
+    margin-bottom: clamp(12px, 2vw, 28px);
+  }
+
+  .title {
+    font-size: clamp(48px, 7vw, 104px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .lead {
+    font-style: italic;
+    font-size: clamp(24px, 2.6vw, 38px);
+    line-height: 1.3;
+    max-width: 820px;
+  }
+
+  .group {
+    padding: 0 var(--gutter) var(--section-y);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .masonry {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    columns: 3;
+    column-gap: clamp(20px, 3vw, 40px);
+  }
+
+  .masonry li {
+    break-inside: avoid;
+    margin-bottom: clamp(24px, 3vw, 40px);
+  }
+
+  .art {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: var(--blush);
+  }
+
+  .art :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  .strip {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    opacity: 0;
+    transition: opacity 0.3s ease, height 0.3s ease;
+  }
+
+  .strip span:nth-child(1) {
+    background: var(--s1);
+  }
+
+  .strip span:nth-child(2) {
+    background: var(--s2);
+  }
+
+  .strip span:nth-child(3) {
+    background: var(--s3);
+  }
+
+  @media (hover: hover) {
+    .art:hover .strip,
+    .art:focus-visible .strip {
+      opacity: 1;
+      height: 22%;
+    }
+  }
+
+  @media (hover: none) {
+    .strip {
+      opacity: 1;
+      height: 8px;
+    }
+  }
+
+  .year {
+    margin-top: 10px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--cocoa);
+  }
+
+  .lightbox {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(255, 252, 250, 0.97);
+    color: var(--chocolate);
+  }
+
+  .lightbox[open] {
+    display: grid;
+    grid-template-columns: 72px 1fr 72px;
+    align-items: center;
+  }
+
+  .lightbox::backdrop {
+    background: rgba(74, 50, 40, 0.3);
+  }
+
+  .lightbox figure {
+    margin: 0;
+    height: 100vh;
+    padding: 64px 0 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: calc(100vh - 140px);
+    object-fit: contain;
+  }
+
+  .lightbox figcaption {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--cocoa);
+    min-height: 1.4em;
+  }
+
+  .lightbox button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--chocolate);
+    background: var(--milk);
+    color: var(--chocolate);
+    font: inherit;
+    font-size: 18px;
+    justify-self: center;
+  }
+
+  .lightbox button:hover {
+    background: var(--chocolate);
+    color: var(--milk);
+  }
+
+  .lb-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 22px !important;
+  }
+
+  .masonry.few {
+    columns: 4;
+  }
+
+  @media (max-width: 1100px) {
+    .masonry,
+    .masonry.few {
+      columns: 2;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .masonry,
+    .masonry.few {
+      columns: 1;
+    }
+
+    .lightbox[open] {
+      grid-template-columns: 1fr;
+    }
+
+    .lb-prev,
+    .lb-next {
+      position: absolute;
+      bottom: 16px;
+    }
+
+    .lb-prev {
+      left: 16px;
+    }
+
+    .lb-next {
+      right: 16px;
+    }
+
+    .lightbox figure {
+      padding: 64px 12px 80px;
+    }
+
+    .lightbox img {
+      max-height: calc(100vh - 170px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .strip {
+      transition: none;
+    }
+  }
+</style>

@@ -1,9 +1,9 @@
 export type Lang = 'en' | 'ro';
-export type PageKey = 'home' | 'work' | 'savoir' | 'about' | 'contact';
+export type PageKey = 'home' | 'work' | 'savoir' | 'art' | 'about' | 'contact';
 
 const base: Record<Lang, Record<PageKey, string>> = {
-  en: { home: '/', work: '/work', savoir: '/savoir-faire', about: '/about', contact: '/contact' },
-  ro: { home: '/ro', work: '/ro/proiecte', savoir: '/ro/savoir-faire', about: '/ro/despre', contact: '/ro/contact' },
+  en: { home: '/', work: '/work', savoir: '/savoir-faire', art: '/savoir-faire/painting-drawing', about: '/about', contact: '/contact' },
+  ro: { home: '/ro', work: '/ro/proiecte', savoir: '/ro/savoir-faire', art: '/ro/savoir-faire/pictura-si-desen', about: '/ro/despre', contact: '/ro/contact' },
 };
 
 export function path(lang: Lang, key: PageKey): string {
@@ -16,6 +16,9 @@ export function projectPath(lang: Lang, slug: string): string {
 
 export const other = (lang: Lang): Lang => (lang === 'en' ? 'ro' : 'en');
 
+/** "Lea Tămășiloniu" page titles, without dashes */
+export const pageTitle = (name: string) => `${name} | Lea Tămășiloniu`;
+
 export const ui = {
   en: {
     skip: 'Skip to content',
@@ -25,11 +28,12 @@ export const ui = {
     close: 'Close',
     langLabel: 'Language',
     studio: 'Lea Tămășiloniu Studio',
-    available: 'Taking on select projects',
-    heroLine: 'Operations · Delivery · Craft',
-    statement: 'I bring structure to creative businesses — the systems, rhythms and projects behind work done well,',
+    available: 'Open to new clients',
+    since: 'Since',
+    heroLine: 'Consultancy for creative businesses',
+    statement: 'I help creative businesses run as beautifully as the work they make. Calm systems, clear rhythms and projects delivered',
     statementEm: 'with an eye for quality.',
-    whatIDo: 'What I do',
+    howIHelp: 'How I can help',
     moreSavoir: 'More on Savoir-Faire',
     selectedWork: 'Selected work',
     allWork: 'All work',
@@ -47,7 +51,6 @@ export const ui = {
       client: 'Client',
       role: 'Role',
       year: 'Year',
-      discipline: 'Discipline',
       palette: 'Palette',
       next: 'Next project',
       soon: 'Full case study coming soon.',
@@ -62,11 +65,12 @@ export const ui = {
     close: 'Închide',
     langLabel: 'Limba',
     studio: 'Lea Tămășiloniu Studio',
-    available: 'Disponibilă pentru proiecte selectate',
-    heroLine: 'Operațiuni · Execuție · Meșteșug',
-    statement: 'Aduc structură în afacerile creative: sistemele, ritmurile și proiectele din spatele lucrului bine făcut,',
+    available: 'Disponibilă pentru clienți noi',
+    since: 'Din',
+    heroLine: 'Consultanță pentru afaceri creative',
+    statement: 'Ajut afacerile creative să funcționeze la fel de frumos ca lucrurile pe care le creează. Sisteme calme, ritmuri clare și proiecte livrate',
     statementEm: 'cu un ochi atent la calitate.',
-    whatIDo: 'Ce fac',
+    howIHelp: 'Cum te pot ajuta',
     moreSavoir: 'Mai multe despre Savoir-Faire',
     selectedWork: 'Proiecte selectate',
     allWork: 'Toate proiectele',
@@ -84,7 +88,6 @@ export const ui = {
       client: 'Client',
       role: 'Rol',
       year: 'An',
-      discipline: 'Disciplină',
       palette: 'Paletă',
       next: 'Proiectul următor',
       soon: 'Studiul de caz complet urmează în curând.',
@@ -93,6 +96,55 @@ export const ui = {
   },
 } as const;
 
+/** The consultancy: four ways to work together. */
+export const offers = {
+  en: [
+    {
+      title: 'Operations review',
+      body: 'A clear look at how your business really runs: where time and money slip away, and what to fix first.',
+      items: ['Conversations with you and your team', 'A map of how work flows today', 'A short plan with clear priorities'],
+    },
+    {
+      title: 'Systems & SOPs',
+      body: 'Processes, operating rhythms and reporting your team can actually follow, built to last as you grow.',
+      items: ['SOPs written with your team', 'Operating rhythms (EOS, Level 10)', 'Reporting and KPIs that mean something'],
+    },
+    {
+      title: 'Projects & events',
+      body: 'Launches, events and production projects run end to end, from the first brief to the final handover.',
+      items: ['Planning, budgets and timelines', 'Suppliers and partners, managed', 'Delivery on the day'],
+    },
+    {
+      title: 'Ongoing support',
+      body: 'A few days a month on your side, keeping operations steady while you focus on the work.',
+      items: ['Set days each month', 'Regular check-ins with your team', 'Help with hiring, onboarding and training'],
+    },
+  ],
+  ro: [
+    {
+      title: 'Analiză operațională',
+      body: 'O privire clară asupra felului în care funcționează afacerea ta: unde se pierd timp și bani și ce merită rezolvat mai întâi.',
+      items: ['Discuții cu tine și cu echipa', 'O hartă a felului în care circulă munca azi', 'Un plan scurt, cu priorități clare'],
+    },
+    {
+      title: 'Sisteme și proceduri',
+      body: 'Procese, ritmuri de lucru și raportare pe care echipa ta le poate urma cu adevărat, gândite să dureze pe măsură ce crești.',
+      items: ['Proceduri (SOP) scrise împreună cu echipa', 'Ritmuri de lucru (EOS, Level 10)', 'Raportare și KPI care spun ceva'],
+    },
+    {
+      title: 'Proiecte și evenimente',
+      body: 'Lansări, evenimente și proiecte de producție duse de la cap la coadă, de la primul brief până la predarea finală.',
+      items: ['Planificare, bugete și termene', 'Relația cu furnizorii și partenerii', 'Coordonare în ziua evenimentului'],
+    },
+    {
+      title: 'Sprijin continuu',
+      body: 'Câteva zile pe lună alături de tine, ca operațiunile să meargă constant, iar tu să te poți concentra pe ce faci cel mai bine.',
+      items: ['Zile stabilite în fiecare lună', 'Întâlniri regulate cu echipa', 'Sprijin la recrutare, integrare și training'],
+    },
+  ],
+} as const;
+
+/** The expertise behind the consultancy. */
 export const services = {
   en: [
     {
@@ -123,7 +175,7 @@ export const services = {
       items: ['Coordonare de proiect de la cap la coadă', 'Evenimente și lansări', 'Relația cu furnizorii și partenerii', 'Etape, riscuri și dependențe', 'Livrare către client'],
     },
     {
-      title: 'Meșteșug',
+      title: 'Detaliu',
       body: 'Brand, ambalaje și producție tipografică, tratate cu ochiul unui designer și disciplina unui producător.',
       items: ['Ambalaje și producție tipografică', 'Finisaje și relația cu tipografiile', 'Consecvență de brand pe toate canalele', 'Coordonare de campanii și conținut', 'Adobe Creative Suite'],
     },

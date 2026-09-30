@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { ui, path, other, type Lang } from '../i18n/ui';
+import { ui, path, other, pageTitle, type Lang } from '../i18n/ui';
 import { CONTACT_EMAIL, INSTAGRAM, LINKEDIN, WEB3FORMS_KEY } from '../config';
 
 interface Props {
@@ -11,19 +11,19 @@ const t = ui[lang];
 const f = {
   en: {
     title: 'Let’s talk.',
-    intro: 'Tell me a little about your business and what you have in mind.',
+    intro: 'Tell me a little about your business and where you’d like a hand. I’ll come back to you with a few questions and a way forward.',
     direct: 'Or write directly',
     first: 'First name',
     last: 'Surname',
     email: 'Email',
     reason: 'Reason for getting in touch',
     choose: 'Choose one',
-    reasons: ['Strategy enquiry', 'Creative enquiry', 'Project or event delivery', 'Collaboration', 'Press', 'Other'],
+    reasons: ['Operations review', 'Systems & SOPs', 'Project or event', 'Ongoing support', 'Creative enquiry', 'Collaboration or press', 'Other'],
     message: 'Message',
     send: 'Send message',
     sending: 'Sending…',
     privacy: 'Your details are only used to reply to your message.',
-    ok: 'Thank you — your message is on its way. I’ll be in touch soon.',
+    ok: 'Thank you. Your message is on its way and I’ll be in touch soon.',
     fail: 'Your message couldn’t be sent. Please email me directly at',
     fallback: 'Your email app will open with your message ready to send.',
     subject: 'Website enquiry',
@@ -31,14 +31,14 @@ const f = {
   },
   ro: {
     title: 'Să vorbim.',
-    intro: 'Spune-mi câte ceva despre afacerea ta și despre ce ai în minte.',
+    intro: 'Spune-mi câte ceva despre afacerea ta și unde ai avea nevoie de ajutor. Revin cu câteva întrebări și o propunere.',
     direct: 'Sau scrie-mi direct',
     first: 'Prenume',
     last: 'Nume',
     email: 'Email',
     reason: 'Motivul mesajului',
     choose: 'Alege o opțiune',
-    reasons: ['Strategie', 'Proiect creativ', 'Coordonare de proiect sau eveniment', 'Colaborare', 'Presă', 'Altceva'],
+    reasons: ['Analiză operațională', 'Sisteme și proceduri', 'Proiect sau eveniment', 'Sprijin continuu', 'Proiect creativ', 'Colaborare sau presă', 'Altceva'],
     message: 'Mesaj',
     send: 'Trimite mesajul',
     sending: 'Se trimite…',
@@ -51,7 +51,7 @@ const f = {
   },
 }[lang];
 ---
-<Base lang={lang} alt={path(other(lang), 'contact')} current="contact" title={`${t.nav.contact} — Lea Tămășiloniu`} description={f.description}>
+<Base lang={lang} alt={path(other(lang), 'contact')} current="contact" title={pageTitle(t.nav.contact)} description={f.description}>
   <div class="contact">
     <section class="intro-col">
       <h1 class="label">{t.nav.contact}</h1>
@@ -137,10 +137,10 @@ const f = {
       const reason = String(data.get('reason') ?? '');
       const message = String(data.get('message') ?? '');
       const email = String(data.get('email') ?? '');
-      const subject = `${d.subject} — ${reason} — ${first} ${last}`;
+      const subject = `${d.subject}: ${reason}, ${first} ${last}`;
 
       if (!d.key) {
-        const body = `${message}\n\n— ${first} ${last}\n${email}`;
+        const body = `${message}\n\n${first} ${last}\n${email}`;
         window.location.href = `mailto:${d.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         status.textContent = d.fallback ?? '';
         return;

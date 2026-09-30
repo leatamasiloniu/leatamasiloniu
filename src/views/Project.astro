@@ -2,8 +2,8 @@
 import Glyphs from '../components/Glyphs.astro';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { ui, path, projectPath, other, type Lang } from '../i18n/ui';
-import { projects, type Project } from '../data/projects';
+import { ui, path, projectPath, other, pageTitle, type Lang } from '../i18n/ui';
+import { projects, yearLabel, type Project } from '../data/projects';
 
 interface Props {
   lang: Lang;
@@ -19,7 +19,7 @@ const nextP = projects[(idx + 1) % projects.length];
   lang={lang}
   alt={projectPath(other(lang), p.slug)}
   current="work"
-  title={`${p.name} — Lea Tămășiloniu`}
+  title={pageTitle(p.name)}
   description={c.intro}
 >
   <article>
@@ -30,7 +30,7 @@ const nextP = projects[(idx + 1) % projects.length];
       <dl class="meta">
         <div><dt class="label">{t.project.client}</dt><dd>{p.client}</dd></div>
         <div><dt class="label">{t.project.role}</dt><dd>{c.role}</dd></div>
-        <div><dt class="label">{t.project.year}</dt><dd>{p.year}</dd></div>
+        <div><dt class="label">{t.project.year}</dt><dd>{yearLabel(p, t.since)}</dd></div>
       </dl>
     </header>
 

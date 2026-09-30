@@ -2,8 +2,8 @@
 import Glyphs from '../components/Glyphs.astro';
 import Base from '../layouts/Base.astro';
 import Carousel from '../components/Carousel.astro';
-import { ui, services, path, projectPath, type Lang } from '../i18n/ui';
-import { projects } from '../data/projects';
+import { ui, offers, path, projectPath, type Lang } from '../i18n/ui';
+import { projects, yearLabel } from '../data/projects';
 
 interface Props {
   lang: Lang;
@@ -34,11 +34,11 @@ const alt = path(lang === 'en' ? 'ro' : 'en', 'home');
 
   <section class="services" aria-labelledby="services-title">
     <div class="row-head">
-      <h2 id="services-title" class="label">{t.whatIDo}</h2>
+      <h2 id="services-title" class="label">{t.howIHelp}</h2>
       <a class="label more" href={path(lang, 'savoir')}>{t.moreSavoir} <span aria-hidden="true">→</span></a>
     </div>
     <div class="service-grid">
-      {services[lang].map((s, i) => (
+      {offers[lang].map((s, i) => (
         <article class="service">
           <span class="num serif" aria-hidden="true">0{i + 1}</span>
           <h3 class="serif">{s.title}</h3>
@@ -63,7 +63,7 @@ const alt = path(lang === 'en' ? 'ro' : 'en', 'home');
               ))}
             </span>
             <span class="kind">{p[lang].kind}</span>
-            <span class="year">{p.year}</span>
+            <span class="year">{yearLabel(p, t.since)}</span>
           </a>
         </li>
       ))}
@@ -169,7 +169,7 @@ const alt = path(lang === 'en' ? 'ro' : 'en', 'home');
 
   .service-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: clamp(40px, 5vw, 72px);
   }
 
@@ -193,8 +193,8 @@ const alt = path(lang === 'en' ? 'ro' : 'en', 'home');
   }
 
   .service h3 {
-    font-size: 40px;
-    line-height: 1;
+    font-size: clamp(30px, 2.5vw, 36px);
+    line-height: 1.05;
   }
 
   .service p {
@@ -251,6 +251,12 @@ const alt = path(lang === 'en' ? 'ro' : 'en', 'home');
   .year {
     text-align: right;
     white-space: nowrap;
+  }
+
+  @media (max-width: 1100px) {
+    .service-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 900px) {

@@ -2,7 +2,7 @@
 import Glyphs from '../components/Glyphs.astro';
 import Base from '../layouts/Base.astro';
 import PaletteCard from '../components/PaletteCard.astro';
-import { ui, path, projectPath, other, type Lang } from '../i18n/ui';
+import { ui, path, projectPath, other, pageTitle, type Lang } from '../i18n/ui';
 import { projects } from '../data/projects';
 
 interface Props {
@@ -11,8 +11,8 @@ interface Props {
 const { lang } = Astro.props;
 const t = ui[lang];
 const copy = {
-  en: { intro: 'Operations, delivery and production for creative businesses — a selection.', title: 'Work — Lea Tămășiloniu' },
-  ro: { intro: 'Operațiuni, execuție și producție pentru afaceri creative — o selecție.', title: 'Proiecte — Lea Tămășiloniu' },
+  en: { intro: 'A selection of operations, delivery and production work for creative businesses.', title: pageTitle('Work') },
+  ro: { intro: 'O selecție de proiecte de operațiuni, execuție și producție pentru afaceri creative.', title: pageTitle('Proiecte') },
 }[lang];
 ---
 <Base lang={lang} alt={path(other(lang), 'work')} current="work" title={copy.title} description={copy.intro}>
