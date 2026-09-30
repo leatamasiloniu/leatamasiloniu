@@ -116,10 +116,9 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: 'impressed',
-    name: 'Impressed',
-    italic: true,
-    client: 'Mount Street Printers × Foilco',
+    slug: 'msp-foilco-fedrigoni',
+    name: 'MSP × Foilco × Fedrigoni',
+    client: 'Mount Street Printers × Foilco × Fedrigoni',
     year: '2025',
     image: impInvitation,
     alt: { en: 'The Impressed invitation: navy card with iridescent foiled lettering and an embossed pattern', ro: 'Invitația Impressed: carton bleumarin cu litere folio irizate și un model embosat' },
@@ -136,9 +135,9 @@ export const projects: Project[] = [
       { image: impGuests, alt: { en: 'Guests gathered in front of a wall of coloured papers during a talk', ro: 'Invitați adunați în fața unui perete de hârtii colorate, în timpul unei prezentări' } },
     ],
     en: {
-      kind: 'An evening with MSP × Foilco, 70+ guests',
+      kind: 'Impressed: An Evening with Mount Street Printers x Foilco',
       role: 'Planning & delivery',
-      intro: 'Impressed: An Evening with Mount Street Printers x Foilco. A celebration of foiling and embossing for 70+ guests, co-hosted with Foilco and sponsored by Fedrigoni and Tomlinson.',
+      intro: 'A celebration of foiling and embossing for 70+ guests, co-hosted with Foilco and sponsored by Fedrigoni and Tomlinson.',
       points: [
         'Planned and delivered the evening end to end: venue, suppliers, sponsors and guests.',
         'Produced the invitation, envelope and a "Make an impression" playing card deck to show what foil can do.',
@@ -147,9 +146,9 @@ export const projects: Project[] = [
       ],
     },
     ro: {
-      kind: 'O seară cu MSP × Foilco, 70+ invitați',
+      kind: 'Impressed: An Evening with Mount Street Printers x Foilco',
       role: 'Planificare și execuție',
-      intro: 'Impressed: An Evening with Mount Street Printers x Foilco. O seară dedicată folio-ului și embosării pentru peste 70 de invitați, organizată împreună cu Foilco și susținută de Fedrigoni și Tomlinson.',
+      intro: 'O seară dedicată folio-ului și embosării pentru peste 70 de invitați, organizată împreună cu Foilco și susținută de Fedrigoni și Tomlinson.',
       points: [
         'Am planificat și livrat seara de la cap la coadă: locație, furnizori, sponsori și invitați.',
         'Am produs invitația, plicul și un pachet de cărți de joc „Make an impression”, care arată ce poate face folio-ul.',
