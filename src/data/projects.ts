@@ -1,7 +1,16 @@
 import type { ImageMetadata } from 'astro';
 import tiles from '../assets/work/tiles.jpg';
 import diary from '../assets/work/diary.jpg';
-import candles from '../assets/work/candles.jpg';
+import impInvitation from '../assets/work/impressed/invitation.jpg';
+import impFoilPattern from '../assets/work/impressed/foil-pattern.jpg';
+import impFoilLetters from '../assets/work/impressed/foil-letters.jpg';
+import impEnvelope from '../assets/work/impressed/envelope.jpg';
+import impDies from '../assets/work/impressed/brass-dies.jpg';
+import impCards from '../assets/work/impressed/cards.jpg';
+import impTalk from '../assets/work/impressed/talk.jpg';
+import impShowing from '../assets/work/impressed/showing-invite.jpg';
+import impMachine from '../assets/work/impressed/foiling-machine.jpg';
+import impGuests from '../assets/work/impressed/guests.jpg';
 import whLobby1 from '../assets/work/watchhouse/lobby-1.jpg';
 import whLobbyWide from '../assets/work/watchhouse/lobby-wide.jpg';
 import whStreetWindows from '../assets/work/watchhouse/street-windows.jpg';
@@ -107,30 +116,44 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: 'msp-foilco-fedrigoni',
-    name: 'MSP × Foilco × Fedrigoni',
-    client: 'Mount Street Printers × Foilco × Fedrigoni',
+    slug: 'impressed',
+    name: 'Impressed',
+    italic: true,
+    client: 'Mount Street Printers × Foilco',
     year: '2025',
-    image: candles,
-    alt: { en: 'Rows of coral, mint and lilac taper candles hanging in a shop window', ro: 'Rânduri de lumânări coral, mentă și liliachii atârnate într-o vitrină' },
-    palette: { swatches: ['#AD8F51', '#B2331E', '#582E25'], bg: '#F3DEDB', ink: '#582E25' },
+    image: impInvitation,
+    alt: { en: 'The Impressed invitation: navy card with iridescent foiled lettering and an embossed pattern', ro: 'Invitația Impressed: carton bleumarin cu litere folio irizate și un model embosat' },
+    palette: { swatches: ['#B8904A', '#4B4F9C', '#1F2033'], bg: '#EEEEF4', ink: '#1F2033' },
+    gallery: [
+      { image: impFoilPattern, alt: { en: 'Close-up of the silver foiled and embossed pattern with the Mount Street Printers name', ro: 'Detaliu cu modelul folio argintiu embosat și numele Mount Street Printers' } },
+      { image: impFoilLetters, alt: { en: 'Iridescent foiled and debossed IMPRESSED lettering on navy card', ro: 'Literele IMPRESSED, folio irizat și presate în carton bleumarin' } },
+      { image: impDies, alt: { en: 'The brass dies used for the embossing and foiling', ro: 'Clișeele de alamă folosite pentru embosare și folio' } },
+      { image: impShowing, alt: { en: 'Guests looking at the invitation next to its brass dies at the event', ro: 'Invitați privind invitația lângă clișeele ei de alamă, la eveniment' } },
+      { image: impCards, alt: { en: 'The "Make an impression" playing cards, foiled in copper, silver, pink and holographic', ro: 'Cărțile de joc „Make an impression”, cu folio aramiu, argintiu, roz și holografic' } },
+      { image: impMachine, alt: { en: 'Live foiling on a vintage press during the evening', ro: 'Demonstrație de folio pe o presă de epocă, în timpul serii' } },
+      { image: impTalk, alt: { en: 'Lea welcoming guests at the event', ro: 'Lea urând bun venit invitaților la eveniment' } },
+      { image: impEnvelope, alt: { en: 'The navy envelope with a blind-embossed Mount Street Printers name', ro: 'Plicul bleumarin cu numele Mount Street Printers embosat' } },
+      { image: impGuests, alt: { en: 'Guests gathered in front of a wall of coloured papers during a talk', ro: 'Invitați adunați în fața unui perete de hârtii colorate, în timpul unei prezentări' } },
+    ],
     en: {
-      kind: 'Industry event, 70+ guests',
+      kind: 'An evening with MSP × Foilco, 70+ guests',
       role: 'Planning & delivery',
-      intro: 'An industry event for 70+ guests, planned and delivered end to end.',
+      intro: 'Impressed: An Evening with Mount Street Printers x Foilco. A celebration of foiling and embossing for 70+ guests, co-hosted with Foilco and sponsored by Fedrigoni and Tomlinson.',
       points: [
-        'Managed logistics, suppliers and stakeholder communication from start to finish.',
-        'Brought together three names from the print and paper industry for one event.',
+        'Planned and delivered the evening end to end: venue, suppliers, sponsors and guests.',
+        'Produced the invitation, envelope and a "Make an impression" playing card deck to show what foil can do.',
+        'Brought the craft to life with live foiling demonstrations and talks.',
         'Opened new business conversations with 50+ prospective clients.',
       ],
     },
     ro: {
-      kind: 'Eveniment de industrie, 70+ invitați',
+      kind: 'O seară cu MSP × Foilco, 70+ invitați',
       role: 'Planificare și execuție',
-      intro: 'Un eveniment de industrie pentru peste 70 de invitați, planificat și livrat de la cap la coadă.',
+      intro: 'Impressed: An Evening with Mount Street Printers x Foilco. O seară dedicată folio-ului și embosării pentru peste 70 de invitați, organizată împreună cu Foilco și susținută de Fedrigoni și Tomlinson.',
       points: [
-        'Am gestionat logistica, furnizorii și comunicarea cu partenerii de la început până la final.',
-        'Am reunit trei nume din industria tiparului și a hârtiei într-un singur eveniment.',
+        'Am planificat și livrat seara de la cap la coadă: locație, furnizori, sponsori și invitați.',
+        'Am produs invitația, plicul și un pachet de cărți de joc „Make an impression”, care arată ce poate face folio-ul.',
+        'Am adus meșteșugul la viață prin demonstrații live de folio și prezentări.',
         'Am deschis discuții de business cu peste 50 de potențiali clienți.',
       ],
     },
