@@ -30,8 +30,8 @@ export const ui = {
     studio: 'Lea Tămășiloniu Studio',
     available: 'Open to new clients',
     since: 'Since',
-    heroLine: 'Consultancy for creative businesses',
-    statement: 'I help creative businesses run as beautifully as the work they make. Calm systems, clear rhythms and projects delivered',
+    heroLine: 'Strategy & structure for growing businesses',
+    statement: 'I help growing businesses see what’s holding them back and build the structure to move forward. Calm systems, clear plans and events people remember, all',
     statementEm: 'with an eye for quality.',
     howIHelp: 'How I can help',
     moreSavoir: 'More on Savoir-Faire',
@@ -67,8 +67,8 @@ export const ui = {
     studio: 'Lea Tămășiloniu Studio',
     available: 'Disponibilă pentru clienți noi',
     since: 'Din',
-    heroLine: 'Consultanță pentru afaceri creative',
-    statement: 'Ajut afacerile creative să funcționeze la fel de frumos ca lucrurile pe care le creează. Sisteme calme, ritmuri clare și proiecte livrate',
+    heroLine: 'Strategie și structură pentru afaceri în creștere',
+    statement: 'Ajut afacerile în creștere să vadă ce le ține pe loc și să construiască structura de care au nevoie ca să meargă mai departe. Sisteme calme, planuri clare și evenimente memorabile, toate',
     statementEm: 'cu un ochi atent la calitate.',
     howIHelp: 'Cum te pot ajuta',
     moreSavoir: 'Mai multe despre Savoir-Faire',
@@ -100,46 +100,46 @@ export const ui = {
 export const offers = {
   en: [
     {
-      title: 'Operations review',
-      body: 'A clear look at how your business really runs: where time and money slip away, and what to fix first.',
-      items: ['Conversations with you and your team', 'A map of how work flows today', 'A short plan with clear priorities'],
+      title: 'Review & plan',
+      body: 'I find where time, money and energy slip away, then turn it into a clear plan: priorities, owners and 90-day goals.',
+      items: ['Conversations with you and your team', 'An honest picture of how the business runs today', 'A roadmap with clear priorities'],
     },
     {
-      title: 'Systems & SOPs',
-      body: 'Processes, operating rhythms and reporting your team can actually follow, built to last as you grow.',
-      items: ['SOPs written with your team', 'Operating rhythms (EOS, Level 10)', 'Reporting and KPIs that mean something'],
+      title: 'Systems that stick',
+      body: 'I set up the structure a growing team needs and guide your people through it until it becomes habit.',
+      items: ['Meeting rhythms and a weekly scorecard', 'SOPs written with your team', 'Coaching through the first quarters'],
     },
     {
       title: 'Projects & events',
-      body: 'Launches, events and production projects run end to end, from the first brief to the final handover.',
-      items: ['Planning, budgets and timelines', 'Suppliers and partners, managed', 'Delivery on the day'],
+      body: 'Launches, industry events and brand moments, planned end to end and delivered with care.',
+      items: ['Concept, budget and timeline', 'Suppliers, partners and guests', 'Delivery on the day'],
     },
     {
-      title: 'Ongoing support',
-      body: 'A few days a month on your side, keeping operations steady while you focus on the work.',
-      items: ['Set days each month', 'Regular check-ins with your team', 'Help with hiring, onboarding and training'],
+      title: 'Advisory',
+      body: 'Regular sessions to keep the momentum, check progress and make the next decision with confidence.',
+      items: ['Quarterly planning sessions', 'A sounding board between sessions', 'Support with hiring and onboarding'],
     },
   ],
   ro: [
     {
-      title: 'Analiză operațională',
-      body: 'O privire clară asupra felului în care funcționează afacerea ta: unde se pierd timp și bani și ce merită rezolvat mai întâi.',
-      items: ['Discuții cu tine și cu echipa', 'O hartă a felului în care circulă munca azi', 'Un plan scurt, cu priorități clare'],
+      title: 'Analiză și plan',
+      body: 'Găsesc unde se pierd timpul, banii și energia, apoi transform totul într-un plan clar: priorități, responsabili și obiective pe 90 de zile.',
+      items: ['Discuții cu tine și cu echipa', 'O imagine sinceră a felului în care funcționează afacerea azi', 'Un plan cu priorități clare'],
     },
     {
-      title: 'Sisteme și proceduri',
-      body: 'Procese, ritmuri de lucru și raportare pe care echipa ta le poate urma cu adevărat, gândite să dureze pe măsură ce crești.',
-      items: ['Proceduri (SOP) scrise împreună cu echipa', 'Ritmuri de lucru (EOS, Level 10)', 'Raportare și KPI care spun ceva'],
+      title: 'Sisteme care rămân',
+      body: 'Construiesc structura de care are nevoie o echipă în creștere și îi ghidez pe oameni până când devine obicei.',
+      items: ['Ritmuri de întâlniri și indicatori urmăriți săptămânal', 'Proceduri (SOP) scrise împreună cu echipa', 'Îndrumare în primele trimestre'],
     },
     {
       title: 'Proiecte și evenimente',
-      body: 'Lansări, evenimente și proiecte de producție duse de la cap la coadă, de la primul brief până la predarea finală.',
-      items: ['Planificare, bugete și termene', 'Relația cu furnizorii și partenerii', 'Coordonare în ziua evenimentului'],
+      body: 'Lansări, evenimente de industrie și momente de brand, planificate de la cap la coadă și livrate cu grijă.',
+      items: ['Concept, buget și calendar', 'Furnizori, parteneri și invitați', 'Coordonare în ziua evenimentului'],
     },
     {
-      title: 'Sprijin continuu',
-      body: 'Câteva zile pe lună alături de tine, ca operațiunile să meargă constant, iar tu să te poți concentra pe ce faci cel mai bine.',
-      items: ['Zile stabilite în fiecare lună', 'Întâlniri regulate cu echipa', 'Sprijin la recrutare, integrare și training'],
+      title: 'Consultanță continuă',
+      body: 'Întâlniri regulate ca să păstrăm ritmul, să urmărim progresul și să iei următoarea decizie cu încredere.',
+      items: ['Sesiuni trimestriale de planificare', 'Un partener de discuție între sesiuni', 'Sprijin la recrutare și integrare'],
     },
   ],
 } as const;
@@ -150,7 +150,7 @@ export const services = {
     {
       title: 'Structure',
       body: 'Operations built to last: SOPs, operating rhythms, reporting and the systems that keep a business calm as it grows.',
-      items: ['SOP design and rollout', 'Operating rhythms (EOS, Level 10)', 'Reporting, KPIs and reviews', 'Workflow and process improvement', 'Recruitment, onboarding and training'],
+      items: ['SOP design and rollout', 'Weekly and quarterly operating rhythms', 'Reporting, KPIs and reviews', 'Workflow and process improvement', 'Recruitment, onboarding and training'],
     },
     {
       title: 'Delivery',
@@ -167,7 +167,7 @@ export const services = {
     {
       title: 'Structură',
       body: 'Operațiuni gândite să dureze: proceduri, ritmuri de lucru, raportare și sistemele care păstrează o afacere calmă pe măsură ce crește.',
-      items: ['Proceduri operaționale standard (SOP)', 'Ritmuri de lucru (EOS, Level 10)', 'Raportare, KPI și analize periodice', 'Optimizarea fluxurilor și proceselor', 'Recrutare, integrare și training'],
+      items: ['Proceduri operaționale standard (SOP)', 'Ritmuri de lucru săptămânale și trimestriale', 'Raportare, KPI și analize periodice', 'Optimizarea fluxurilor și proceselor', 'Recrutare, integrare și training'],
     },
     {
       title: 'Execuție',

@@ -55,7 +55,7 @@ export const projects: Project[] = [
       intro: 'Bringing structure to a Mayfair print studio, across sales, production, design and admin.',
       points: [
         'Designed and rolled out 20+ SOPs across key operational functions.',
-        'Introduced EOS operating rhythms: weekly Level 10 meetings and quarterly planning.',
+        'Introduced weekly and quarterly operating rhythms, from leadership meetings to quarterly planning.',
         'Built monthly and quarterly reviews to give leadership clear visibility.',
         'Coordinated recruitment and onboarding for five hires across production, retail and sales.',
         'Improved the Shopify store, from campaign planning to an archive sale.',
@@ -68,7 +68,7 @@ export const projects: Project[] = [
       intro: 'Structură pentru un atelier de tipar din Mayfair, de la vânzări și producție la design și administrație.',
       points: [
         'Am creat și implementat peste 20 de proceduri operaționale standard (SOP) în funcțiile-cheie.',
-        'Am introdus ritmurile EOS: ședințe săptămânale Level 10 și planificare trimestrială.',
+        'Am introdus ritmuri de lucru săptămânale și trimestriale, de la ședințele conducerii la planificarea trimestrială.',
         'Am construit analize lunare și trimestriale care oferă conducerii o imagine clară.',
         'Am coordonat recrutarea și integrarea a cinci angajați în producție, retail și vânzări.',
         'Am îmbunătățit magazinul Shopify, de la planificarea campaniilor la o vânzare de arhivă.',
