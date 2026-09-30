@@ -1,5 +1,16 @@
 import type { ImageMetadata } from 'astro';
 import tiles from '../assets/work/tiles.jpg';
+import dogMap from '../assets/work/dog/map.jpg';
+import dogCounter from '../assets/work/dog/launch-counter.jpg';
+import dogBar from '../assets/work/dog/launch-bar.jpg';
+import dogReading from '../assets/work/dog/reading.jpg';
+import dogBookshop from '../assets/work/dog/bookshop.jpg';
+import dogSigning from '../assets/work/dog/signing.jpg';
+import dogTable from '../assets/work/dog/table-bw.jpg';
+import dogDog from '../assets/work/dog/dog.jpg';
+import dogAudience from '../assets/work/dog/audience.jpg';
+import dogGuests from '../assets/work/dog/guests.jpg';
+import dogLea from '../assets/work/dog/lea.jpg';
 import demInvitation from '../assets/work/demystified/invitation.jpg';
 import demTickets from '../assets/work/demystified/tickets.jpg';
 import demEnvelope from '../assets/work/demystified/envelope.jpg';
@@ -60,6 +71,8 @@ export interface Project {
   alt?: { en: string; ro: string };
   /** optional different image for the top of the project page */
   hero?: { image: ImageMetadata; alt: { en: string; ro: string } };
+  /** an outside link shown under the project text */
+  link?: { href: string; en: string; ro: string };
   palette: Palette;
   /** extra photos shown on the project page */
   gallery?: { image: ImageMetadata; alt: { en: string; ro: string } }[];
@@ -241,20 +254,41 @@ export const projects: Project[] = [
     slug: 'the-whole-world-and-his-dog',
     name: 'The Whole World and His Dog',
     italic: true,
-    client: 'The Whole World and His Dog',
+    client: 'Jonathan Posner, Buchanan Press',
     year: '2024–25',
-    palette: brand,
+    image: dogMap,
+    alt: { en: 'Lea’s hand-painted map of Hampstead Heath in the book: The Route of our Thousand Days', ro: 'Harta Hampstead Heath pictată de mână de Lea, în carte: The Route of our Thousand Days' },
+    hero: { image: dogCounter, alt: { en: 'Copies of the book tied with red ribbon, next to postcards, at the launch', ro: 'Exemplare ale cărții legate cu panglică roșie, lângă cărți poștale, la lansare' } },
+    palette: { swatches: ['#E6CF98', '#3F8A2C', '#A8322B'], bg: '#F5F1E4', ink: '#1F4518' },
+    link: { href: 'https://andhisdog.com', en: 'Buy the book at andhisdog.com', ro: 'Cartea se poate cumpăra de pe andhisdog.com' },
+    gallery: [
+      { image: dogBar, alt: { en: 'Guests at the launch evening, along the coffee bar', ro: 'Invitați la seara de lansare, de-a lungul barului' } },
+      { image: dogReading, alt: { en: 'Jonathan Posner reading on the stairs, his dog beside him', ro: 'Jonathan Posner citind pe scări, cu câinele alături' } },
+      { image: dogBookshop, alt: { en: 'The Whole World and His Dog in a bookshop window', ro: 'The Whole World and His Dog în vitrina unei librării' } },
+      { image: dogSigning, alt: { en: 'Jonathan Posner signing a copy of the book', ro: 'Jonathan Posner semnând un exemplar al cărții' } },
+      { image: dogTable, alt: { en: 'The book table from above, with candles and postcards', ro: 'Masa cu cărți văzută de sus, cu lumânări și cărți poștale' } },
+      { image: dogDog, alt: { en: 'The guest of honour, surrounded by guests', ro: 'Invitatul de onoare, înconjurat de oaspeți' } },
+      { image: dogAudience, alt: { en: 'Guests listening to the reading', ro: 'Invitați ascultând lectura' } },
+      { image: dogGuests, alt: { en: 'Guests looking through the postcards', ro: 'Invitați răsfoind cărțile poștale' } },
+      { image: dogLea, alt: { en: 'Lea at the launch', ro: 'Lea la lansare' } },
+    ],
     en: {
       kind: 'Illustration & book launch',
       role: 'Illustrator & launch event',
-      intro: 'Illustrations for The Whole World and His Dog, and the launch event that introduced it.',
-      points: ['Illustrated the book.', 'Planned and delivered its launch event.'],
+      intro: 'Illustrations for Jonathan Posner’s The Whole World and His Dog: A Thousand Days on Hampstead Heath, and the launch evening that introduced it.',
+      points: [
+        'Illustrated the book, including a hand-painted map of the Heath: The Route of our Thousand Days.',
+        'Planned and delivered the launch: guests, a reading, a book signing and a table of postcards and ribbon-wrapped copies.',
+      ],
     },
     ro: {
       kind: 'Ilustrație și lansare de carte',
       role: 'Ilustrație și eveniment de lansare',
-      intro: 'Ilustrațiile pentru The Whole World and His Dog și evenimentul de lansare care l-a prezentat.',
-      points: ['Am ilustrat cartea.', 'Am planificat și organizat evenimentul de lansare.'],
+      intro: 'Ilustrațiile pentru cartea lui Jonathan Posner, The Whole World and His Dog: A Thousand Days on Hampstead Heath, și seara de lansare care a prezentat-o.',
+      points: [
+        'Am ilustrat cartea, inclusiv o hartă a parcului Hampstead Heath pictată de mână: The Route of our Thousand Days.',
+        'Am planificat și organizat lansarea: invitați, o lectură, o sesiune de autografe și o masă cu cărți poștale și exemplare legate cu panglică.',
+      ],
     },
   },
 ];

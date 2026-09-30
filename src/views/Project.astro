@@ -88,6 +88,9 @@ const top = p.hero ?? (p.image ? { image: p.image, alt: p.alt } : undefined);
         </ul>
       )}
       {p.soon && <p class="soon">{t.project.soon}</p>}
+      {p.link && (
+        <a class="buy" href={p.link.href} target="_blank" rel="noopener">{p.link[lang]} <span aria-hidden="true">→</span></a>
+      )}
     </section>
 
     {p.gallery && (
@@ -245,6 +248,14 @@ const top = p.hero ?? (p.image ? { image: p.image, alt: p.alt } : undefined);
     line-height: 1.7;
   }
 
+  .buy {
+    grid-column: 8 / -1;
+    justify-self: start;
+    font-size: 15px;
+    border-bottom: 1px solid var(--chocolate);
+    padding-bottom: 4px;
+  }
+
   .soon {
     font-style: italic;
     color: var(--cocoa);
@@ -302,7 +313,8 @@ const top = p.hero ?? (p.image ? { image: p.image, alt: p.alt } : undefined);
 
     .intro,
     .points,
-    .soon {
+    .soon,
+    .buy {
       grid-column: 1 / -1;
     }
 
