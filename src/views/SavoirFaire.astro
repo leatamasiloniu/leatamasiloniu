@@ -2,7 +2,7 @@
 import Glyphs from '../components/Glyphs.astro';
 import Base from '../layouts/Base.astro';
 import Cta from '../components/Cta.astro';
-import { offers, services, path, other, pageTitle, type Lang } from '../i18n/ui';
+import { offers, services, path, projectPath, other, pageTitle, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -16,12 +16,11 @@ const copy = {
     consultancyLead: 'Four ways to work together, on their own or combined.',
     expertise: 'The expertise behind it',
     practice: 'The practice',
-    practiceLead: 'Painting, drawing, interiors and photography keep my eye sharp. They are where the craft comes from.',
+    practiceLead: 'Painting, drawing and interiors keep my eye sharp. They are where the craft comes from.',
     practiceItems: [
       { a: 'Painting & drawing', b: 'Flowers and doodles', href: path('en', 'art') },
-      { a: 'Illustration', b: 'The Whole World and His Dog' },
+      { a: 'Illustration', b: 'The Whole World and His Dog', href: projectPath('en', 'the-whole-world-and-his-dog') },
       { a: 'Interior design', b: 'BA (Hons), First Class, University of the Arts London' },
-      { a: 'Photography', b: '' },
     ],
     description: 'Strategy and structure for growing businesses: review and plan, systems that stick, projects and events, and advisory.',
   },
@@ -32,12 +31,11 @@ const copy = {
     consultancyLead: 'Patru moduri de a lucra împreună, separat sau combinate.',
     expertise: 'Experiența din spate',
     practice: 'Practica',
-    practiceLead: 'Pictura, desenul, designul de interior și fotografia îmi țin ochiul exersat. De acolo vine atenția la detaliu.',
+    practiceLead: 'Pictura, desenul și designul de interior îmi țin ochiul exersat. De acolo vine atenția la detaliu.',
     practiceItems: [
       { a: 'Pictură și desen', b: 'Flori și desene libere', href: path('ro', 'art') },
-      { a: 'Ilustrație', b: 'The Whole World and His Dog' },
+      { a: 'Ilustrație', b: 'The Whole World and His Dog', href: projectPath('ro', 'the-whole-world-and-his-dog') },
       { a: 'Design de interior', b: 'BA (Hons), First Class, University of the Arts London' },
-      { a: 'Fotografie', b: '' },
     ],
     description: 'Strategie și structură pentru afaceri în creștere: analiză și plan, sisteme care rămân, proiecte și evenimente, consultanță continuă.',
   },
