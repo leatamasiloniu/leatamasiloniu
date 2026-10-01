@@ -28,7 +28,8 @@ const copy = {
       ['2021–22', 'Design Intern', 'HCL Architects'],
       ['2019–22', 'BA (Hons) Interior Design, First Class', 'University of the Arts London'],
     ],
-    description: 'Lea Tămășiloniu: strategy and structure for growing businesses, with a designer’s training.',
+    seoTitle: 'About Lea Tămășiloniu | Business consultant, London & Oradea',
+    description: 'Lea Tămășiloniu is a business consultant working with clients in London, Oradea and across Europe, with a background in operations, hospitality and design.',
   },
   ro: {
     lead: 'Strategie și structură, cu ochi de designer.',
@@ -48,11 +49,12 @@ const copy = {
       ['2021–22', 'Design Intern', 'HCL Architects'],
       ['2019–22', 'BA (Hons) Design de interior, First Class', 'University of the Arts London'],
     ],
-    description: 'Lea Tămășiloniu: strategie și structură pentru afaceri în creștere, cu formare de designer.',
+    seoTitle: 'Despre Lea Tămășiloniu | Consultant de afaceri, Oradea și Londra',
+    description: 'Lea Tămășiloniu este consultant de afaceri și lucrează cu clienți din Oradea, Londra și restul Europei, cu experiență în operațiuni, ospitalitate și design.',
   },
 }[lang];
 ---
-<Base lang={lang} alt={path(other(lang), 'about')} current="about" title={pageTitle(t.nav.about)} description={copy.description}>
+<Base lang={lang} alt={path(other(lang), 'about')} current="about" title={copy.seoTitle} description={copy.description}>
   <section class="page-head">
     <h1 class="label">{t.nav.about}</h1>
     <p class="serif lead"><Glyphs text={copy.lead} /></p>

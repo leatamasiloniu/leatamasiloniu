@@ -44,7 +44,7 @@ export const ui = {
       contact: 'Contact',
       follow: 'Follow',
       studio: 'Studio',
-      studioLine: 'Working with clients in London and across Europe',
+      studioLine: 'Working with clients in London, Oradea and across Europe',
       availability: 'Availability',
     },
     project: {
@@ -81,7 +81,7 @@ export const ui = {
       contact: 'Contact',
       follow: 'Urmărește',
       studio: 'Studio',
-      studioLine: 'Lucrez cu clienți din Londra și din întreaga Europă',
+      studioLine: 'Lucrez cu clienți din Oradea, Londra și din întreaga Europă',
       availability: 'Disponibilitate',
     },
     project: {

@@ -27,7 +27,8 @@ const f = {
     fail: 'Your message couldn’t be sent. Please email me directly at',
     fallback: 'Your email app will open with your message ready to send.',
     subject: 'Website enquiry',
-    description: 'Get in touch with Lea Tămășiloniu Studio.',
+    seoTitle: 'Contact | Lea Tămășiloniu Studio, business consultancy',
+    description: 'Get in touch with Lea Tămășiloniu Studio about consultancy, structure and systems, or an event. Based in London and Oradea.',
   },
   ro: {
     title: 'Să vorbim.',
@@ -47,11 +48,12 @@ const f = {
     fail: 'Mesajul nu a putut fi trimis. Scrie-mi direct la',
     fallback: 'Se deschide aplicația ta de email, cu mesajul pregătit.',
     subject: 'Mesaj de pe site',
-    description: 'Contactează Lea Tămășiloniu Studio.',
+    seoTitle: 'Contact | Lea Tămășiloniu Studio, consultanță pentru afaceri',
+    description: 'Scrie-mi despre consultanță, organizarea afacerii sau un eveniment. Lea Tămășiloniu Studio, Oradea și Londra.',
   },
 }[lang];
 ---
-<Base lang={lang} alt={path(other(lang), 'contact')} current="contact" title={pageTitle(t.nav.contact)} description={f.description}>
+<Base lang={lang} alt={path(other(lang), 'contact')} current="contact" title={f.seoTitle} description={f.description}>
   <div class="contact">
     <section class="intro-col">
       <h1 class="label">{t.nav.contact}</h1>

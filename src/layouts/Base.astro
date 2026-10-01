@@ -18,12 +18,12 @@ interface Props {
 
 const defaults = {
   en: {
-    title: 'Lea Tămășiloniu Studio | Consultancy for growing businesses',
-    description: 'Lea Tămășiloniu Studio helps growing businesses see what’s holding them back and build the structure to move forward: strategy, systems, projects and events.',
+    title: 'Consultancy for growing businesses | Lea Tămășiloniu Studio',
+    description: 'Lea Tămășiloniu Studio helps growing businesses get organised: a clear plan, structure and systems that stick, and events done well. London, Oradea and across Europe.',
   },
   ro: {
-    title: 'Lea Tămășiloniu Studio | Consultanță pentru afaceri în creștere',
-    description: 'Lea Tămășiloniu Studio ajută afacerile în creștere să vadă ce le ține pe loc și să construiască structura de care au nevoie: strategie, sisteme, proiecte și evenimente.',
+    title: 'Consultanță pentru afaceri în creștere | Lea Tămășiloniu Studio',
+    description: 'Lea Tămășiloniu Studio ajută afacerile în creștere să se organizeze: un plan clar, structură și sisteme care rămân, evenimente bine făcute. Oradea, Londra și restul Europei.',
   },
 };
 
@@ -58,7 +58,13 @@ const schema = {
       email: 'info@leatamasiloniu.com',
       founder: { '@id': 'https://www.leatamasiloniu.com/#lea' },
       description: defaults[lang].description,
-      areaServed: ['United Kingdom', 'Europe'],
+      areaServed: [
+        { '@type': 'City', name: 'Oradea' },
+        { '@type': 'Country', name: 'Romania' },
+        { '@type': 'City', name: 'London' },
+        { '@type': 'Country', name: 'United Kingdom' },
+        { '@type': 'Place', name: 'Europe' },
+      ],
       serviceType: lang === 'en'
         ? ['Operations consultancy', 'Systems and SOPs', 'Event planning and delivery', 'Business advisory']
         : ['Consultanță operațională', 'Sisteme și proceduri', 'Planificare și organizare de evenimente', 'Consultanță de afaceri'],

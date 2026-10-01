@@ -11,8 +11,8 @@ interface Props {
 const { lang } = Astro.props;
 const t = ui[lang];
 const copy = {
-  en: { intro: 'A selection of work, from restructuring a business to running its biggest events.', title: pageTitle('Work') },
-  ro: { intro: 'O selecție de proiecte, de la restructurarea unei afaceri la organizarea celor mai mari evenimente ale ei.', title: pageTitle('Proiecte') },
+  en: { intro: 'A selection of work, from restructuring a business to running its biggest events.', title: 'Work: operations, branding and events | Lea Tămășiloniu' },
+  ro: { intro: 'O selecție de proiecte, de la restructurarea unei afaceri la organizarea celor mai mari evenimente ale ei.', title: 'Proiecte: operațiuni, branding și evenimente | Lea Tămășiloniu' },
 }[lang];
 ---
 <Base lang={lang} alt={path(other(lang), 'work')} current="work" title={copy.title} description={copy.intro}>

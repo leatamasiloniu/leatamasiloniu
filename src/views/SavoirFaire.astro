@@ -11,7 +11,7 @@ const { lang } = Astro.props;
 const copy = {
   en: {
     lead: 'The know-how behind work done well. I listen first, to the people, the space and the business, then build the structure that lets good work happen.',
-    who: 'For growing teams. Most at home with creative, hospitality and premium brands.',
+    who: 'For growing teams that need structure. Most at home with creative, hospitality and premium brands.',
     consultancy: 'Consultancy',
     consultancyLead: 'Four ways to work together, on their own or combined.',
     expertise: 'The expertise behind it',
@@ -22,11 +22,12 @@ const copy = {
       { a: 'Illustration', b: 'The Whole World and His Dog', href: projectPath('en', 'the-whole-world-and-his-dog') },
       { a: 'Interior design', b: 'BA (Hons), First Class, University of the Arts London' },
     ],
-    description: 'Strategy and structure for growing businesses: review and plan, systems that stick, projects and events, and advisory.',
+    seoTitle: 'Operations consultancy: structure, systems, events | Lea Tămășiloniu',
+    description: 'Operations consultancy for growing businesses: review and plan, systems and SOPs, projects and events, ongoing advisory. London, Oradea and across Europe.',
   },
   ro: {
     lead: 'Priceperea din spatele lucrului bine făcut. Întâi ascult oamenii, spațiul și afacerea, apoi construiesc structura de care are nevoie ca să crească.',
-    who: 'Pentru echipe în creștere. Cel mai aproape de brandurile creative, premium și din ospitalitate.',
+    who: 'Pentru echipe în creștere care au nevoie de structură. Cel mai aproape de brandurile creative, premium și din ospitalitate.',
     consultancy: 'Consultanță',
     consultancyLead: 'Patru moduri de a lucra împreună, separat sau combinate.',
     expertise: 'Experiența din spate',
@@ -37,11 +38,12 @@ const copy = {
       { a: 'Ilustrație', b: 'The Whole World and His Dog', href: projectPath('ro', 'the-whole-world-and-his-dog') },
       { a: 'Design de interior', b: 'BA (Hons), First Class, University of the Arts London' },
     ],
-    description: 'Strategie și structură pentru afaceri în creștere: analiză și plan, sisteme care rămân, proiecte și evenimente, consultanță continuă.',
+    seoTitle: 'Consultanță pentru afaceri: organizare, sisteme, evenimente | Lea Tămășiloniu',
+    description: 'Consultanță pentru afaceri în creștere: analiză și plan, organizare și proceduri, proiecte și evenimente, consultanță continuă. Oradea, Londra și restul Europei.',
   },
 }[lang];
 ---
-<Base lang={lang} alt={path(other(lang), 'savoir')} current="savoir" title={pageTitle('Savoir-Faire')} description={copy.description}>
+<Base lang={lang} alt={path(other(lang), 'savoir')} current="savoir" title={copy.seoTitle} description={copy.description}>
   <section class="page-head">
     <h1 class="serif title"><Glyphs text="Savoir-Faire" /></h1>
     <p class="serif lead">{copy.lead}</p>
