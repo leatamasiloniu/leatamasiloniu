@@ -9,6 +9,10 @@ interface Props {
 const { lang } = Astro.props;
 const t = ui[lang];
 const year = new Date().getFullYear();
+const note = {
+  en: { label: 'Tulip', line: 'Romanian for tulip. La + Lea.' },
+  ro: { label: 'Lalea', line: 'La + Lea.' },
+}[lang];
 ---
 <div class="checker footer-checker" aria-hidden="true"></div>
 <footer id="contact-info" class="site-footer">
@@ -32,16 +36,30 @@ const year = new Date().getFullYear();
     </div>
   </div>
 
-  <div class="initials" aria-hidden="true">
-    <span class="serif">L</span>
-    <span class="tulip"><Tulip /></span>
-    <span class="serif">T</span>
+  <div class="initials">
+    <span class="serif" aria-hidden="true">L</span>
+    <button type="button" class="tulip" aria-describedby="tulip-note" aria-label={note.label}>
+      <Tulip />
+      <span id="tulip-note" class="tulip-note" role="tooltip">
+        <em class="serif">Lalea</em>
+        <span>{note.line}</span>
+      </span>
+    </button>
+    <span class="serif" aria-hidden="true">T</span>
   </div>
 
   <div class="base">
-    <span>© {year} Lea Tămășiloniu</span>
+    <span>© {year}</span>
   </div>
 </footer>
+
+<script>
+  // On touch screens there is no hover: a tap shows or hides the note.
+  document.querySelectorAll<HTMLButtonElement>('button.tulip').forEach((b) => {
+    b.addEventListener('click', () => b.setAttribute('aria-expanded', String(b.getAttribute('aria-expanded') !== 'true')));
+    b.addEventListener('blur', () => b.setAttribute('aria-expanded', 'false'));
+  });
+</script>
 
 <style>
   .footer-checker {
@@ -114,7 +132,7 @@ const year = new Date().getFullYear();
     align-items: center;
   }
 
-  .initials .serif {
+  .initials > .serif {
     font-size: clamp(150px, 30vw, 430px);
     line-height: 0.74;
   }
@@ -125,6 +143,66 @@ const year = new Date().getFullYear();
     display: block;
     height: clamp(66px, 13vw, 190px);
     color: var(--blush);
+  }
+
+  .tulip {
+    position: relative;
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  .tulip-note {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 18px);
+    transform: translate(-50%, 6px);
+    width: max-content;
+    max-width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 14px 20px;
+    background: var(--blush);
+    color: var(--chocolate);
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .tulip-note em {
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.1;
+    letter-spacing: 0;
+  }
+
+  .tulip-note::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border: 6px solid transparent;
+    border-top-color: var(--blush);
+  }
+
+  .tulip:hover .tulip-note,
+  .tulip:focus-visible .tulip-note,
+  .tulip[aria-expanded='true'] .tulip-note {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tulip-note {
+      transition: none;
+    }
   }
 
   .tulip :global(svg) {

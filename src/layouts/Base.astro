@@ -30,11 +30,41 @@ const defaults = {
 const { lang, alt, current } = Astro.props;
 const title = Astro.props.title ?? defaults[lang].title;
 const description = Astro.props.description ?? defaults[lang].description;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), Astro.site);
 const altUrl = new URL(alt, Astro.site);
 const enUrl = lang === 'en' ? canonical : altUrl;
 const roUrl = lang === 'ro' ? canonical : altUrl;
 const ogImage = new URL('/og.png', Astro.site);
+
+// Structured data: tells search engines who Lea is and what the studio offers.
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://www.leatamasiloniu.com/#lea',
+      name: 'Lea Tămășiloniu',
+      jobTitle: lang === 'en' ? 'Consultant' : 'Consultant',
+      url: 'https://www.leatamasiloniu.com/',
+      sameAs: ['https://www.linkedin.com/in/lea-tamasiloniu', 'https://www.instagram.com/leatamasiloniustudio/'],
+      alumniOf: { '@type': 'CollegeOrUniversity', name: 'University of the Arts London' },
+      knowsLanguage: ['en', 'ro'],
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': 'https://www.leatamasiloniu.com/#studio',
+      name: 'Lea Tămășiloniu Studio',
+      url: 'https://www.leatamasiloniu.com/',
+      email: 'info@leatamasiloniu.com',
+      founder: { '@id': 'https://www.leatamasiloniu.com/#lea' },
+      description: defaults[lang].description,
+      areaServed: ['United Kingdom', 'Europe'],
+      serviceType: lang === 'en'
+        ? ['Operations consultancy', 'Systems and SOPs', 'Event planning and delivery', 'Business advisory']
+        : ['Consultanță operațională', 'Sisteme și proceduri', 'Planificare și organizare de evenimente', 'Consultanță de afaceri'],
+    },
+  ],
+};
 ---
 <!doctype html>
 <html lang={lang}>
@@ -58,6 +88,7 @@ const ogImage = new URL('/og.png', Astro.site);
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>document.documentElement.classList.add('js');</script>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
     <a class="skip-link" href="#main">{ui[lang].skip}</a>
