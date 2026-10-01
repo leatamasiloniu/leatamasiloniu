@@ -118,6 +118,18 @@ const schema = {
         revealEls.forEach((el) => io.observe(el));
       }
 
+      // Checker strips drift sideways as the page scrolls, like a ribbon.
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        let ticking = false;
+        const shift = () => {
+          document.documentElement.style.setProperty('--ribbon', (window.scrollY * 0.25).toFixed(1));
+          ticking = false;
+        };
+        window.addEventListener('scroll', () => {
+          if (!ticking) { ticking = true; requestAnimationFrame(shift); }
+        }, { passive: true });
+      }
+
       const topBtn = document.querySelector<HTMLButtonElement>('.to-top');
       if (topBtn) {
         const toggle = () => { topBtn.hidden = window.scrollY < window.innerHeight; };

@@ -9,9 +9,10 @@ interface Props {
 const { lang } = Astro.props;
 const t = ui[lang];
 const year = new Date().getFullYear();
+// Set like a dictionary entry: the headword split as la·lea.
 const note = {
-  en: { label: 'Tulip', line: 'Romanian for tulip. La + Lea.' },
-  ro: { label: 'Lalea', line: 'La + Lea.' },
+  en: { label: 'Tulip', pos: 'noun, Romanian', def: 'tulip.' },
+  ro: { label: 'Lalea', pos: 's.f.', def: 'floare în formă de cupă.' },
 }[lang];
 ---
 <div class="checker footer-checker" aria-hidden="true"></div>
@@ -41,8 +42,8 @@ const note = {
     <button type="button" class="tulip" aria-describedby="tulip-note" aria-label={note.label}>
       <Tulip />
       <span id="tulip-note" class="tulip-note" role="tooltip">
-        <em class="serif">Lalea</em>
-        <span>{note.line}</span>
+        <span class="entry"><em class="serif">la·lea</em> <span class="pos">{note.pos}</span></span>
+        <span class="def">{note.def}</span>
       </span>
     </button>
     <span class="serif" aria-hidden="true">T</span>
@@ -150,6 +151,7 @@ const note = {
     padding: 0;
     border: 0;
     background: none;
+    font: inherit;
   }
 
   .tulip-note {
@@ -158,28 +160,44 @@ const note = {
     bottom: calc(100% + 18px);
     transform: translate(-50%, 6px);
     width: max-content;
-    max-width: 240px;
+    max-width: 230px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    padding: 14px 20px;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 12px 18px 13px;
     background: var(--blush);
     color: var(--chocolate);
-    text-align: center;
+    text-align: left;
     font-size: 13px;
-    letter-spacing: 0.04em;
     line-height: 1.4;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
+  .tulip-note .entry {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    white-space: nowrap;
+  }
+
   .tulip-note em {
     font-style: italic;
-    font-size: 26px;
-    line-height: 1.1;
-    letter-spacing: 0;
+    font-size: 21px;
+    line-height: 1.2;
+  }
+
+  .tulip-note .pos {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--cocoa);
+  }
+
+  .tulip-note .def {
+    font-weight: 300;
   }
 
   .tulip-note::after {

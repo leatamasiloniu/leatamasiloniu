@@ -98,7 +98,7 @@ p {
 
 .checker {
   height: 28px;
-  background: repeating-conic-gradient(var(--checker-a, var(--green)) 0% 25%, var(--checker-b, var(--milk)) 0% 50%) 0 0 / 28px 28px;
+  background: repeating-conic-gradient(var(--checker-a, var(--green)) 0% 25%, var(--checker-b, var(--milk)) 0% 50%) calc(var(--ribbon, 0) * 1px) 0 / 28px 28px;
 }
 
 .dot {

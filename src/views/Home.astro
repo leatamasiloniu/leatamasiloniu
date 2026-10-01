@@ -32,8 +32,9 @@ const copy = {
 ---
 <Base lang={lang} alt={alt} current="home">
   <section class="hero">
+    <div class="petals" aria-hidden="true"></div>
     <div class="hero-centre">
-      <img class="hero-mark" src="/monogram.svg" alt="" width="168" height="174" />
+      <div class="hero-mark"><img src="/monogram.svg" alt="" width="168" height="174" /></div>
       <h1 class="serif">Lea Tămășiloniu</h1>
       <p class="label hero-line">{t.heroLine}</p>
     </div>
@@ -45,11 +46,11 @@ const copy = {
 
   <div class="checker" aria-hidden="true"></div>
 
-  <section class="statement" data-reveal>
+  <section class="statement">
     <blockquote>
-      <p class="serif">{statement[0]}. {statement[1]}, {statement[2]}, <em>{statement[3]}</em></p>
+      <p class="serif" data-lines>{statement[0]}. {statement[1]}, {statement[2]}, <em>{statement[3]}</em></p>
     </blockquote>
-    <p class="label sign"><span class="rule" aria-hidden="true"></span>Lea Tămășiloniu</p>
+    <p class="label sign" data-reveal><span class="rule" aria-hidden="true"></span>Lea Tămășiloniu</p>
   </section>
 
   <section class="help" aria-labelledby="help-title">
@@ -72,6 +73,125 @@ const copy = {
   <Carousel lang={lang} title={copy.work} moreHref={path(lang, 'work')} moreLabel={t.allWork} />
 
 </Base>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hero = document.querySelector<HTMLElement>('.hero')!;
+
+  // 1. The monogram builds itself from scattered pieces, then the name fades in.
+  //    Once per browser session, so returning to Home doesn't make people wait.
+  (async () => {
+    let seen = false;
+    try { seen = sessionStorage.getItem('lt-built') === '1'; } catch {}
+    const show = () => hero.classList.add('built');
+    if (reduce || seen || !('animate' in Element.prototype)) return show();
+    const mark = hero.querySelector<HTMLElement>('.hero-mark')!;
+    hero.classList.add('building');
+    const fallback = setTimeout(show, 1500);
+    try {
+      const res = await fetch('/monogram.svg');
+      const doc = new DOMParser().parseFromString(await res.text(), 'image/svg+xml');
+      const svg = doc.documentElement as unknown as SVGSVGElement;
+      svg.setAttribute('aria-hidden', 'true');
+      clearTimeout(fallback);
+      mark.replaceChildren(document.importNode(svg, true));
+      const paths = Array.from(mark.querySelectorAll<SVGPathElement>('path'));
+      let last = 0;
+      paths.forEach((path) => {
+        // offsets are in the path's own units (the SVG scales them by 1/10)
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 5000 + Math.random() * 9000;
+        const delay = 200 + Math.random() * 900;
+        const duration = 1300 + Math.random() * 500;
+        last = Math.max(last, delay + duration);
+        path.animate(
+          [
+            { transform: `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${(Math.random() - 0.5) * 70}deg) scale(0.6)`, opacity: 0 },
+            { opacity: 1, offset: 0.4 },
+            { transform: 'none', opacity: 1 },
+          ],
+          { duration, delay, easing: 'cubic-bezier(0.16, 0.8, 0.24, 1)', fill: 'backwards' },
+        );
+      });
+      hero.classList.remove('building');
+      setTimeout(show, last - 500);
+      try { sessionStorage.setItem('lt-built', '1'); } catch {}
+    } catch {
+      clearTimeout(fallback);
+      hero.classList.remove('building');
+      show();
+    }
+  })();
+
+  // 2. Tulip petals trail the cursor across the hero (mouse only).
+  if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const layer = hero.querySelector<HTMLElement>('.petals')!;
+    const colours = ['#f2c9cd', '#ecb8bf', '#f6dadb', '#e7aab3', '#f2c9cd', '#1e5a44'];
+    let lastX = 0, lastY = 0, live = 0;
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      if (Math.hypot(x - lastX, y - lastY) < 46 || live > 22) return;
+      lastX = x; lastY = y; live++;
+      const p = document.createElement('span');
+      const size = 7 + Math.random() * 7;
+      p.className = 'petal';
+      p.style.cssText = `left:${x}px;top:${y}px;width:${size}px;height:${size * 1.45}px;background:${colours[Math.floor(Math.random() * colours.length)]}`;
+      layer.appendChild(p);
+      const spin = (Math.random() - 0.5) * 260, drift = (Math.random() - 0.5) * 70;
+      p.animate(
+        [
+          { transform: `translate(-50%, -50%) rotate(${spin / 4}deg) scale(0.4)`, opacity: 0 },
+          { transform: `translate(-50%, -50%) rotate(${spin / 3}deg) scale(1)`, opacity: 0.9, offset: 0.12 },
+          { transform: `translate(calc(-50% + ${drift}px), calc(-50% + ${70 + Math.random() * 60}px)) rotate(${spin}deg) scale(0.9)`, opacity: 0 },
+        ],
+        { duration: 1600 + Math.random() * 600, easing: 'cubic-bezier(0.3, 0.2, 0.5, 1)' },
+      ).onfinish = () => { p.remove(); live--; };
+    });
+  }
+
+  // 3. The quote arrives a line at a time.
+  const quote = document.querySelector<HTMLElement>('[data-lines]');
+  if (quote && !reduce && 'IntersectionObserver' in window) {
+    const wrap = (node: Node) => {
+      Array.from(node.childNodes).forEach((n) => {
+        if (n.nodeType === Node.TEXT_NODE) {
+          const frag = document.createDocumentFragment();
+          (n.textContent || '').split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) frag.append(part);
+            else {
+              const w = document.createElement('span');
+              w.className = 'w';
+              w.textContent = part;
+              frag.append(w);
+            }
+          });
+          n.replaceWith(frag);
+        } else wrap(n);
+      });
+    };
+    wrap(quote);
+    const words = Array.from(quote.querySelectorAll<HTMLElement>('.w'));
+    const number = () => {
+      let line = -1, top = -Infinity;
+      words.forEach((w) => {
+        if (w.offsetTop > top + 4) { line++; top = w.offsetTop; }
+        w.style.setProperty('--line', String(line));
+      });
+    };
+    number();
+    quote.classList.add('lines');
+    window.addEventListener('resize', number, { passive: true });
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        quote.classList.add('in');
+        io.disconnect();
+      }
+    }, { rootMargin: '0px 0px -15% 0px' });
+    io.observe(quote);
+  }
+</script>
 
 <style>
   /* ---------- Hero ---------- */
@@ -97,6 +217,99 @@ const copy = {
   .hero-mark {
     width: clamp(110px, 12vw, 168px);
   }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-centre,
+  .hero-foot {
+    position: relative;
+    z-index: 1;
+  }
+
+  .petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .petals :global(.petal) {
+    position: absolute;
+    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+    pointer-events: none;
+  }
+
+  .hero-mark :global(svg),
+  .hero-mark img {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .hero-mark :global(path) {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /* while the monogram is fetched, keep its space but hide the flat image */
+  .hero.building .hero-mark {
+    visibility: hidden;
+  }
+
+  /* name, line and foot wait for the monogram to finish */
+  :global(.js) .hero h1,
+  :global(.js) .hero .hero-line,
+  :global(.js) .hero .hero-foot {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 1.1s ease, transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  :global(.js) .hero .hero-line {
+    transition-delay: 0.25s;
+  }
+
+  :global(.js) .hero .hero-foot {
+    transition-delay: 0.5s;
+  }
+
+  :global(.js) .hero.built h1,
+  :global(.js) .hero.built .hero-line,
+  :global(.js) .hero.built .hero-foot {
+    opacity: 1;
+    transform: none;
+  }
+
+  .lines :global(.w) {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.45em);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: calc(var(--line, 0) * 0.32s);
+  }
+
+  .lines.in :global(.w) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .statement .sign {
+    transition-delay: 1.2s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .hero h1,
+    :global(.js) .hero .hero-line,
+    :global(.js) .hero .hero-foot {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
 
   .hero h1 {
     font-size: clamp(40px, 7.2vw, 104px);
