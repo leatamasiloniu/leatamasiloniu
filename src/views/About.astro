@@ -21,6 +21,7 @@ const copy = {
     background: 'Background',
     timeline: [
       ['Since 2026', 'MBA', 'In progress'],
+      ['2026', 'Inside LVMH Certificate', 'Creation & Branding, Operations & Supply Chain | In progress'],
       ['Since 2024', 'Operations Manager', 'Mount Street Printers'],
       ['2023–24', 'Creative Designer', 'WatchHouse'],
       ['2020–23', 'House Supervisor', 'WatchHouse'],
@@ -40,6 +41,7 @@ const copy = {
     background: 'Parcurs',
     timeline: [
       ['Din 2026', 'MBA', 'În curs'],
+      ['2026', 'Certificat Inside LVMH', 'Creation & Branding, Operations & Supply Chain | În curs'],
       ['Din 2024', 'Operations Manager', 'Mount Street Printers'],
       ['2023–24', 'Creative Designer', 'WatchHouse'],
       ['2020–23', 'House Supervisor', 'WatchHouse'],
@@ -67,7 +69,7 @@ const copy = {
     <h2 id="bg-title" class="label">{copy.background}</h2>
     <ol>
       {copy.timeline.map(([y, what, where]) => (
-        <li><span class="y">{y}</span><span class="serif what">{what}</span><span class="where">{where}</span></li>
+        <li><span class="y">{y}</span><span class="serif what">{what}</span><span class="where">{where.split(' | ').map((part, i) => <>{i > 0 && <br />}{part}</>)}</span></li>
       ))}
     </ol>
   </section>
