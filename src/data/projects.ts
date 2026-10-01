@@ -161,7 +161,7 @@ export const projects: Project[] = [
       intro: 'An evening that opened up the craft of die-stamping, with talks, a live press and printed pieces made for the night. Hosted with GF Smith on Thursday 11 June 2026.',
       points: [
         'Planned and delivered the evening end to end, from partners and speakers to guests and the running order on the night.',
-        'Led the design team on the printed pieces, pushing them to test the limits of print: die-stamped invitations and ticket sleeves, envelopes, a booklet explaining the craft, cards and drinks menus.',
+        'Named the evening and gave the design team carte blanche on the printed pieces, then pushed them past the first drafts to test the limits of print: die-stamped invitations and ticket sleeves, envelopes, a booklet explaining the craft, cards and drinks menus.',
         'Brought die-stamping to life with a live press demonstration and a panel talk.',
         'Hosted the evening and welcomed guests.',
       ],
@@ -172,7 +172,7 @@ export const projects: Project[] = [
       intro: 'O seară care a deschis meșteșugul die-stamping-ului (tiparul în relief cu matriță gravată), cu prezentări, o presă funcționând live și materiale tipărite special pentru eveniment. Organizată împreună cu GF Smith, joi, 11 iunie 2026.',
       points: [
         'Am planificat și livrat seara de la cap la coadă, de la parteneri și vorbitori la invitați și desfășurarea evenimentului.',
-        'Am coordonat echipa de design pentru materialele tipărite, încurajând-o să împingă limitele tiparului: invitații și mâneci de bilet prin die-stamping, plicuri, o broșură care explică tehnica, carduri și meniuri de băuturi.',
+        'Am dat numele serii și i-am lăsat echipei de design mână liberă pentru materialele tipărite, apoi am împins-o dincolo de primele variante, spre limitele tiparului: invitații și mâneci de bilet prin die-stamping, plicuri, o broșură care explică tehnica, carduri și meniuri de băuturi.',
         'Am adus tehnica la viață printr-o demonstrație live la presă și o discuție de panel.',
         'Am prezentat seara și am primit invitații.',
       ],
@@ -203,7 +203,7 @@ export const projects: Project[] = [
       intro: 'A celebration of foiling and embossing for 70+ guests, co-hosted with Foilco and sponsored by Fedrigoni and Tomlinson.',
       points: [
         'Planned and delivered the evening end to end: venue, suppliers, sponsors and guests.',
-        'Led the design team on the invitation, envelope and a "Make an impression" playing card deck, pushing them to show just how far foil can go.',
+        'Named the evening and gave the design team carte blanche on the invitation, envelope and a "Make an impression" playing card deck, then pushed them past the first drafts to show just how far foil can go.',
         'Brought the craft to life with live foiling demonstrations and talks.',
         'Opened new business conversations with 50+ prospective clients.',
       ],
@@ -214,7 +214,7 @@ export const projects: Project[] = [
       intro: 'O seară dedicată imprimării cu folie la cald și embosării, pentru peste 70 de invitați, organizată împreună cu Foilco și susținută de Fedrigoni și Tomlinson.',
       points: [
         'Am planificat și livrat seara de la cap la coadă: locație, furnizori, sponsori și invitați.',
-        'Am coordonat echipa de design pentru invitație, plic și un pachet de cărți de joc „Make an impression”, încurajând-o să arate cât de departe se poate merge cu folia la cald.',
+        'Am dat numele serii și i-am lăsat echipei de design mână liberă pentru invitație, plic și un pachet de cărți de joc „Make an impression”, apoi am împins-o dincolo de primele variante, ca să arate cât de departe se poate merge cu folia la cald.',
         'Am adus meșteșugul la viață prin demonstrații live de imprimare cu folie și prezentări.',
         'Am deschis discuții de business cu peste 50 de potențiali clienți.',
       ],
