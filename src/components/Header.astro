@@ -15,8 +15,10 @@ const links: { key: PageKey; label: string }[] = [
   { key: 'savoir', label: t.nav.savoir },
   { key: 'about', label: t.nav.about },
 ];
-const enHref = lang === 'en' ? Astro.url.pathname : alt;
-const roHref = lang === 'ro' ? Astro.url.pathname : alt;
+// current page without a trailing slash, matching the canonical address
+const here = Astro.url.pathname.replace(/(.)\/$/, '$1');
+const enHref = lang === 'en' ? here : alt;
+const roHref = lang === 'ro' ? here : alt;
 ---
 <header class="site-header">
   <nav class="nav" aria-label="Main">
