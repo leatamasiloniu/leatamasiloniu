@@ -1,0 +1,227 @@
+---
+import Base from '../layouts/Base.astro';
+import { path, other, type Lang } from '../i18n/ui';
+import { CONTACT_EMAIL } from '../config';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const mail = `<a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>`;
+
+// Plain-language privacy notice. Update "updated" whenever the content changes.
+const copy = {
+  en: {
+    title: 'Privacy',
+    seoTitle: 'Privacy | Lea Tămășiloniu Studio',
+    description: 'How Lea Tămășiloniu Studio handles your details: the contact form, analytics cookies and your rights.',
+    updated: 'Last updated 8 October 2026',
+    lead: 'A short, plain account of what this site collects, why, and what you can ask me to do with it.',
+    sections: [
+      {
+        h: 'Who I am',
+        p: [`This site belongs to Lea Tămășiloniu Studio, run by Lea Tămășiloniu. I decide how your details are used. For anything about your data, write to ${mail}.`],
+      },
+      {
+        h: 'The contact form',
+        p: [
+          'When you send a message, I receive your name, surname, email address, the reason you chose and your message.',
+          'I use them only to reply and, if we work together, to arrange that work. The form is delivered by Web3Forms, which passes your message to my inbox and does not use it for anything else.',
+          'I keep our correspondence for as long as it is useful to our conversation or any work that follows, and delete it when it is no longer needed. You can ask me to delete it at any time.',
+        ],
+      },
+      {
+        h: 'Analytics and cookies',
+        p: [
+          'If you allow it, this site uses Google Analytics to count visits: which pages are read, roughly where visitors are (country and city), and how they found the site. It never tells me who you are, and nothing is used for advertising.',
+          'Google Analytics only loads after you click Accept. If you decline, no analytics cookies are set. You can change your choice at any time with “Cookie settings” at the bottom of every page.',
+          'Your choice itself is remembered in your browser, so the question is not asked on every page.',
+        ],
+        table: {
+          head: ['Name', 'Set by', 'Purpose', 'Lasts'],
+          rows: [
+            ['_ga', 'Google Analytics', 'Tells visits apart, without identifying you', '2 years'],
+            ['_ga_…', 'Google Analytics', 'Keeps track of a single visit', '2 years'],
+          ],
+        },
+      },
+      {
+        h: 'Hosting',
+        p: ['The site is hosted by Vercel. Like any web host, it briefly processes technical details such as your IP address to deliver the pages and keep the site secure.'],
+      },
+      {
+        h: 'Outside the UK and EU',
+        p: ['Google and Vercel may process data in the United States. Both take part in the EU–US Data Privacy Framework and its UK extension, which allows these transfers.'],
+      },
+      {
+        h: 'Your rights',
+        p: [
+          `You can ask to see the details I hold about you, correct them, delete them, or object to how they are used, and you can withdraw consent to analytics at any time. Write to ${mail} and I will reply within a month.`,
+          'If you are unhappy with how I have handled your details, you can complain to the data protection authority: ANSPDCP in Romania (dataprotection.ro) or the ICO in the UK (ico.org.uk).',
+        ],
+      },
+    ],
+  },
+  ro: {
+    title: 'Confidențialitate',
+    seoTitle: 'Confidențialitate | Lea Tămășiloniu Studio',
+    description: 'Cum folosește Lea Tămășiloniu Studio datele tale: formularul de contact, cookie-urile de analiză și drepturile tale.',
+    updated: 'Actualizat la 8 octombrie 2026',
+    lead: 'Pe scurt și pe înțeles: ce date colectează acest site, de ce, și ce îmi poți cere să fac cu ele.',
+    sections: [
+      {
+        h: 'Cine sunt',
+        p: [`Site-ul aparține Lea Tămășiloniu Studio, condus de Lea Tămășiloniu. Eu decid cum sunt folosite datele tale. Pentru orice întrebare legată de ele, scrie-mi la ${mail}.`],
+      },
+      {
+        h: 'Formularul de contact',
+        p: [
+          'Când trimiți un mesaj, primesc numele, prenumele, adresa de email, motivul ales și mesajul tău.',
+          'Le folosesc doar ca să-ți răspund și, dacă lucrăm împreună, ca să organizăm colaborarea. Formularul este livrat prin Web3Forms, care trimite mesajul în căsuța mea de email și nu îl folosește în alt scop.',
+          'Păstrez corespondența cât timp este utilă discuției sau colaborării care urmează și o șterg când nu mai este necesară. Îmi poți cere oricând să o șterg.',
+        ],
+      },
+      {
+        h: 'Analiză și cookie-uri',
+        p: [
+          'Dacă ești de acord, site-ul folosește Google Analytics ca să numere vizitele: ce pagini sunt citite, de unde sunt aproximativ vizitatorii (țară și oraș) și cum au găsit site-ul. Nu îmi spune niciodată cine ești și nimic nu este folosit pentru publicitate.',
+          'Google Analytics se încarcă doar după ce apeși Accept. Dacă refuzi, nu se setează niciun cookie de analiză. Îți poți schimba oricând alegerea din „Setări cookie-uri”, în partea de jos a fiecărei pagini.',
+          'Alegerea ta este reținută în browser, ca să nu te întreb pe fiecare pagină.',
+        ],
+        table: {
+          head: ['Nume', 'Setat de', 'Scop', 'Durată'],
+          rows: [
+            ['_ga', 'Google Analytics', 'Deosebește vizitele, fără să te identifice', '2 ani'],
+            ['_ga_…', 'Google Analytics', 'Urmărește o singură vizită', '2 ani'],
+          ],
+        },
+      },
+      {
+        h: 'Găzduire',
+        p: ['Site-ul este găzduit de Vercel. Ca orice serviciu de găzduire, prelucrează pentru scurt timp date tehnice, cum ar fi adresa IP, ca să afișeze paginile și să păstreze site-ul în siguranță.'],
+      },
+      {
+        h: 'În afara UE și a Regatului Unit',
+        p: ['Google și Vercel pot prelucra date în Statele Unite. Ambele fac parte din Cadrul UE–SUA privind protecția datelor (EU–US Data Privacy Framework) și extensia lui pentru Regatul Unit, care permit aceste transferuri.'],
+      },
+      {
+        h: 'Drepturile tale',
+        p: [
+          `Poți cere să vezi datele pe care le am despre tine, să le corectezi, să le ștergi sau să te opui modului în care sunt folosite și îți poți retrage oricând acordul pentru analiză. Scrie-mi la ${mail} și îți răspund în cel mult o lună.`,
+          'Dacă nu ești mulțumit de felul în care ți-am tratat datele, poți depune o plângere la autoritatea de protecție a datelor: ANSPDCP în România (dataprotection.ro) sau ICO în Regatul Unit (ico.org.uk).',
+        ],
+      },
+    ],
+  },
+}[lang];
+---
+<Base lang={lang} alt={path(other(lang), 'privacy')} current="privacy" title={copy.seoTitle} description={copy.description}>
+  <article class="privacy">
+    <header class="p-head">
+      <h1 class="serif">{copy.title}</h1>
+      <p class="serif lead">{copy.lead}</p>
+      <p class="label updated">{copy.updated}</p>
+    </header>
+
+    {copy.sections.map((s) => (
+      <section class="block">
+        <h2 class="label">{s.h}</h2>
+        <div class="body">
+          {s.p.map((para) => <p set:html={para} />)}
+          {s.table && (
+            <div class="table-wrap">
+              <table>
+                <thead><tr>{s.table.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+                <tbody>{s.table.rows.map((r) => <tr>{r.map((c) => <td>{c}</td>)}</tr>)}</tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </section>
+    ))}
+  </article>
+</Base>
+
+<style>
+  .privacy {
+    padding: clamp(48px, 7vw, 100px) var(--gutter) var(--section-y);
+    max-width: 1100px;
+  }
+
+  .p-head {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-bottom: clamp(40px, 5vw, 64px);
+  }
+
+  h1 {
+    font-size: clamp(48px, 7vw, 100px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .lead {
+    font-size: clamp(22px, 2.2vw, 30px);
+    line-height: 1.35;
+    max-width: 760px;
+  }
+
+  .updated {
+    color: var(--cocoa);
+  }
+
+  .block {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+    gap: 24px clamp(24px, 4vw, 64px);
+    padding: clamp(28px, 3vw, 40px) 0;
+    border-top: 1px solid var(--line-milk);
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 640px;
+  }
+
+  .body :global(a) {
+    border-bottom: 1px solid currentColor;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 10px 14px 10px 0;
+    border-bottom: 1px solid var(--line-milk);
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cocoa);
+  }
+
+  @media (max-width: 760px) {
+    .block {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

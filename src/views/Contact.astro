@@ -23,6 +23,7 @@ const f = {
     send: 'Send message',
     sending: 'Sending…',
     privacy: 'Your details are only used to reply to your message.',
+    privacyMore: 'Privacy',
     ok: 'Thank you. Your message is on its way and I’ll be in touch soon.',
     fail: 'Your message couldn’t be sent. Please email me directly at',
     fallback: 'Your email app will open with your message ready to send.',
@@ -44,6 +45,7 @@ const f = {
     send: 'Trimite mesajul',
     sending: 'Se trimite…',
     privacy: 'Datele tale sunt folosite doar pentru a-ți răspunde.',
+    privacyMore: 'Confidențialitate',
     ok: 'Mulțumesc! Mesajul tău a ajuns. Revin în curând.',
     fail: 'Mesajul nu a putut fi trimis. Scrie-mi direct la',
     fallback: 'Se deschide aplicația ta de email, cu mesajul pregătit.',
@@ -111,7 +113,7 @@ const f = {
       <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <div class="actions">
         <button class="label btn-frame submit" type="submit">{f.send}</button>
-        <p class="privacy">{f.privacy}</p>
+        <p class="privacy">{f.privacy} <a href={path(lang, 'privacy')}>{f.privacyMore}</a></p>
       </div>
       <p class="status" role="status" aria-live="polite"></p>
     </form>

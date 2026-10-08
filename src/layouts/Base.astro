@@ -4,6 +4,7 @@ import '@fontsource-variable/bodoni-moda/opsz-italic.css';
 import '@fontsource-variable/jost';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import Consent from '../components/Consent.astro';
 import Footer from '../components/Footer.astro';
 import { ui, type Lang, type PageKey } from '../i18n/ui';
 
@@ -103,6 +104,7 @@ const schema = {
       <slot />
     </main>
     <Footer lang={lang} />
+    <Consent lang={lang} />
     <button class="to-top" type="button" aria-label={ui[lang].toTop} title={ui[lang].toTop} hidden>
       <span aria-hidden="true">↑</span>
     </button>

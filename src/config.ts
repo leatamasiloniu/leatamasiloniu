@@ -9,5 +9,11 @@ export const CONTACT_EMAIL = 'info@leatamasiloniu.com';
  */
 export const WEB3FORMS_KEY = '7f662f6a-4344-4742-ba0f-2586862d53c0';
 
+/**
+ * Google Analytics 4 measurement ID (looks like G-XXXXXXXXXX).
+ * While empty, no analytics load and no cookie banner is shown.
+ */
+export const GA_ID = '';
+
 export const INSTAGRAM = 'https://www.instagram.com/leatamasiloniustudio/';
 export const LINKEDIN = 'https://www.linkedin.com/in/lea-tamasiloniu';

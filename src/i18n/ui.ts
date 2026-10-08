@@ -1,9 +1,9 @@
 export type Lang = 'en' | 'ro';
-export type PageKey = 'home' | 'work' | 'savoir' | 'art' | 'about' | 'contact';
+export type PageKey = 'home' | 'work' | 'savoir' | 'art' | 'about' | 'contact' | 'privacy';
 
 const base: Record<Lang, Record<PageKey, string>> = {
-  en: { home: '/', work: '/work', savoir: '/savoir-faire', art: '/savoir-faire/painting-drawing', about: '/about', contact: '/contact' },
-  ro: { home: '/ro', work: '/ro/proiecte', savoir: '/ro/savoir-faire', art: '/ro/savoir-faire/pictura-si-desen', about: '/ro/despre', contact: '/ro/contact' },
+  en: { home: '/', work: '/work', savoir: '/savoir-faire', art: '/savoir-faire/painting-drawing', about: '/about', contact: '/contact', privacy: '/privacy' },
+  ro: { home: '/ro', work: '/ro/proiecte', savoir: '/ro/savoir-faire', art: '/ro/savoir-faire/pictura-si-desen', about: '/ro/despre', contact: '/ro/contact', privacy: '/ro/confidentialitate' },
 };
 
 export function path(lang: Lang, key: PageKey): string {
@@ -46,6 +46,8 @@ export const ui = {
       studio: 'Studio',
       studioLine: 'Working with clients in London, Oradea and across Europe',
       availability: 'Availability',
+      privacy: 'Privacy',
+      cookies: 'Cookie settings',
     },
     project: {
       client: 'Client',
@@ -83,6 +85,8 @@ export const ui = {
       studio: 'Studio',
       studioLine: 'Lucrez cu clienți din Oradea, Londra și din întreaga Europă',
       availability: 'Disponibilitate',
+      privacy: 'Confidențialitate',
+      cookies: 'Setări cookie-uri',
     },
     project: {
       client: 'Client',

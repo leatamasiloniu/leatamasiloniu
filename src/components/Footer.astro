@@ -51,6 +51,8 @@ const note = {
 
   <div class="base">
     <span>© {year}</span>
+    <a href={path(lang, 'privacy')}>{t.footer.privacy}</a>
+    <button type="button" class="linkish" data-cookie-settings hidden>{t.footer.cookies}</button>
   </div>
 </footer>
 
@@ -232,7 +234,28 @@ const note = {
   .base {
     font-size: 13px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
+    gap: 8px 28px;
+  }
+
+  .linkish {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .linkish[hidden] {
+    display: none;
+  }
+
+  .linkish:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
 
   @media (max-width: 900px) {
